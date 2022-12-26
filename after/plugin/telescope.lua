@@ -4,21 +4,26 @@ if not status_ok then
 end
 
 local actions = require('telescope.actions')
+local builtin = require('telescope.builtin')
+local action_layout = require("telescope.actions.layout")
+local opts = { noremap = true, silent = true }
 
 telescope.setup{
 
   defaults = {
-    -- previewer = false,
     prompt_prefix = "  ",
     selection_caret = " ",
-    -- layout_strategy = "vertical",
     sorting_strategy = "ascending",
     layout_config = {
-      height = 0.90,
+      height = 0.80,
       prompt_position = "top",
     },
 
     mappings = {
+      n = {
+        ["<M-p>"] = action_layout.toggle_preview
+      },
+
       i = {
         ["<C-j>"] = {
           actions.move_selection_next, type = "action",
@@ -28,6 +33,8 @@ telescope.setup{
           actions.move_selection_previous, type = "action",
           opts = { nowait = true, silent = true }
         },
+        ["<C-u>"] = false,
+        ["<M-p>"] = action_layout.toggle_preview
       }
     }
   },
@@ -55,7 +62,28 @@ telescope.setup{
       override_file_sorter = true,     -- override the file sorter
       case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
     },
-  },
+    undo = {
+      use_delta = true,     -- this is the default
+      side_by_side = false, -- this is the default
+      mappings = {          -- this whole table is the default
+        i = {
+          ["<cr>"] = require("telescope-undo.actions").yank_additions,
+          ["<S-cr>"] = require("telescope-undo.actions").yank_deletions,
+          ["<C-cr>"] = require("telescope-undo.actions").restore,
+        },
+      },
+    },
+  }
 }
+pcall(require('telescope').load_extension, 'fzf')
+pcall(require('telescope').load_extension, 'undo')
 
-require('telescope').load_extension('fzf')
+vim.keymap.set('n', '<leader>ff', builtin.find_files, opts)
+vim.keymap.set('n', '<leader>fF', function() builtin.find_files({hidden = true}) end, opts)
+vim.keymap.set('n', '<leader>fg', builtin.live_grep, opts)
+vim.keymap.set('n', '<leader>fb', builtin.buffers, opts)
+vim.keymap.set('n', '<leader>fh', builtin.help_tags, opts)
+vim.keymap.set('n', '<leader>fz', builtin.current_buffer_fuzzy_find, opts)
+vim.keymap.set("n", "<leader>u",":Telescope undo<cr>", opts)
+vim.keymap.set('n', '<leader>rf', builtin.oldfiles, opts)
+vim.keymap.set('n', '<leader>fd', builtin.diagnostics, opts)

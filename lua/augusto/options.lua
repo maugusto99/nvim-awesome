@@ -33,15 +33,33 @@ local options = {
   sidescrolloff = 8,
   ttyfast = true,
   termguicolors = true, -- set term gui colors (most terminals support this)
+  showcmd = false
 }
 
--- netrw options 
-vim.g.netrw_banner = 0
-vim.g.netrw_winsize = 30
-vim.g.netrw_keepdir = 0
-vim.g.netrw_localcopydircmd = "cp -r"
-vim.g.netrw_localrmdir = 'rm -r'
+local disabled_built_ins = {
+  "netrw",
+  "netrwPlugin",
+  "netrwSettings",
+  "netrwFileHandlers",
+  "gzip",
+  "zip",
+  "zipPlugin",
+  "tar",
+  "tarPlugin",
+  "getscript",
+  "getscriptPlugin",
+  "vimball",
+  "vimballPlugin",
+  "2html_plugin",
+  "logipat",
+  "rrhelper",
+  "spellfile_plugin",
+  -- "matchit",
+}
 
+for _, plugin in pairs(disabled_built_ins) do
+  vim.g["loaded_" .. plugin] = 1
+end
 
 for k, v in pairs(options) do
   vim.opt[k] = v

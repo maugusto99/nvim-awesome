@@ -7,11 +7,12 @@ lualine.setup {
   options = {
     icons_enabled = true,
     theme = "auto",
-    component_separators = { left = '', right = ''},
-    section_separators = { left = '', right = ''},
+    component_separators = '|',
+    section_separators = '',
+    -- component_separators = { left = '', right = ''},
+    -- section_separators = { left = '', right = ''},
     disabled_filetypes = {
       statusline = {},
-      winbar = {},
     },
     ignore_focus = {},
     always_divide_middle = true,
@@ -44,8 +45,21 @@ lualine.setup {
     lualine_z = {}
   },
   tabline = {},
-  winbar = {},
-  inactive_winbar = {},
+  winbar = {
+    lualine_a = {},
+  },
+  inactive_winbar = {
+    lualine_a = {},
+    lualine_b = {'branch', 'diff', 'diagnostics'},
+    lualine_c = {},
+    lualine_x = {},
+    lualine_y = {
+    },
+    lualine_z = {
+      'filename',
+      'filetype'
+    }
+  },
   extensions = {}
 }
 
