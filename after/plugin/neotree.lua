@@ -4,6 +4,7 @@ if not status_ok then
   return
 end
 
+
 neotree.setup({
   close_if_last_window = false, -- Close Neo-tree if it is the last window left in the tab
   popup_border_style = "rounded",
