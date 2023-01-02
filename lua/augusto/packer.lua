@@ -6,14 +6,22 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
   vim.cmd [[packadd packer.nvim]]
 end
 
+local status_ok, packer = pcall(require, "packer")
+if not status_ok then
+    return
+end
+
+packer.init {
+    display = {
+        open_fn = function()
+            return require("packer.util").float { border = "rounded" }
+        end,
+    },
+}
+
 require('packer').startup(function(use)
 
   use 'wbthomason/packer.nvim'
-
-  -- use { "ellisonleao/gruvbox.nvim",
-  --   cond = 'vim.g.vscode == nil',
-  --   disable = true
-  -- }
 
   use { 'folke/tokyonight.nvim',
     cond = 'vim.g.vscode == nil',
@@ -64,22 +72,33 @@ require('packer').startup(function(use)
     after = 'telescope.nvim'
   }
 
+  use({ -- Lualine
+    "nvim-lualine/lualine.nvim",
+    requires = { "kyazdani42/nvim-web-devicons"},
+    cond = 'vim.g.vscode == nil'
+  })
+
+  use {'norcalli/nvim-colorizer.lua',
+    config =function ()
+      require('colorizer').setup()
+    end,
+    cond = 'vim.g.vscode == nil'
+  }
+
+  use {"akinsho/toggleterm.nvim", tag = '*',
+    config = function()
+      require("toggleterm").setup()
+    end,
+    cond = 'vim.g.vscode == nil'
+  }
+
   use {
-    "nvim-neo-tree/neo-tree.nvim",
-    branch = "v2.x",
+    'nvim-tree/nvim-tree.lua',
     requires = {
-      "nvim-lua/plenary.nvim",
-      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-      "MunifTanjim/nui.nvim",
+      'nvim-tree/nvim-web-devicons', -- optional, for file icons
     },
     cond = "vim.g.vscode == nil",
   }
-
-  use({ -- Lualine
-    "nvim-lualine/lualine.nvim",
-    requires = { "kyazdani42/nvim-web-devicons", opt = true },
-    cond = 'vim.g.vscode == nil'
-  })
 
   use {
     'VonHeikemen/lsp-zero.nvim',
@@ -104,13 +123,6 @@ require('packer').startup(function(use)
     cond = 'vim.g.vscode == nil',
   }
 
-  use {'norcalli/nvim-colorizer.lua',
-    config =function ()
-      require('colorizer').setup()
-    end,
-    cond = 'vim.g.vscode == nil'
-  }
-
   if is_bootstrap then
     require('packer').sync()
   end
@@ -121,5 +133,5 @@ local packer_group = vim.api.nvim_create_augroup('Packer', { clear = true })
 vim.api.nvim_create_autocmd('BufWritePost', {
   command = 'source <afile> | PackerSync',
   group = packer_group,
-  pattern = vim.fn.expand '/home/augustom/.config/nvim/lua/augusto/packer.lua',
+  pattern = vim.fn.expand '$XDG_CONFIG_HOME/nvim/lua/augusto/packer.lua',
 })

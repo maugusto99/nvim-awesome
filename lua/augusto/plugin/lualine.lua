@@ -46,12 +46,11 @@ lualine.setup {
   },
   tabline = {},
   winbar = {
-    lualine_a = {'tabs'},
+    lualine_a = {},
   },
   inactive_winbar = {
     lualine_a = {},
-    -- lualine_b = {'branch', 'diff', 'diagnostics'},
-    lualine_b = {},
+    lualine_b = {'branch', 'diff', 'diagnostics'},
     lualine_c = {},
     lualine_x = {},
     lualine_y = {
