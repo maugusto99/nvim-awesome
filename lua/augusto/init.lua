@@ -6,7 +6,7 @@ require("augusto.plugin.tokyonight")
 require("augusto.plugin.treesitter")
 require("augusto.plugin.lspconfig")
 require("augusto.plugin.lualine")
-require("augusto.plugin.nvimtree")
+require("augusto.plugin.neotree")
 require("augusto.plugin.telescope")
 require("augusto.plugin.toggleterm")
 
