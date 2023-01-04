@@ -21,6 +21,9 @@ local plugins = {
   {
     'folke/tokyonight.nvim',
     lazy = false,
+    config =function ()
+      require("augusto.plugin.tokyonight")
+    end,
     cond = 'vim.g.vscode == nil',
   },
 
@@ -33,6 +36,9 @@ local plugins = {
 
   {
     'nvim-treesitter/nvim-treesitter',
+    config =function ()
+      require("augusto.plugin.treesitter")
+    end,
     run = function()
       pcall(require('nvim-treesitter.install').update { with_sync = true })
     end,
@@ -56,6 +62,9 @@ local plugins = {
 
   {
     'nvim-telescope/telescope.nvim',
+    config =function ()
+      require("augusto.plugin.telescope")
+    end,
     dependencies = { 'nvim-lua/plenary.nvim' },
     cond = 'vim.g.vscode == nil',
   },
@@ -73,6 +82,9 @@ local plugins = {
 
   {
     "nvim-lualine/lualine.nvim",
+    config =function ()
+      require("augusto.plugin.lualine")
+    end,
     dependencies = { "kyazdani42/nvim-web-devicons"},
     cond = 'vim.g.vscode == nil'
   },
@@ -87,12 +99,18 @@ local plugins = {
 
   {
     "akinsho/toggleterm.nvim",
+    config =function ()
+      require("augusto.plugin.toggleterm")
+    end,
     cond = 'vim.g.vscode == nil'
   },
 
   {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v2.x",
+    config =function ()
+      require("augusto.plugin.neotree")
+    end,
     dependencies = {
       "MunifTanjim/nui.nvim",
     },
@@ -119,6 +137,9 @@ local plugins = {
 
   {
     'VonHeikemen/lsp-zero.nvim',
+    config =function ()
+      require("augusto.plugin.lspconfig")
+    end,
     dependencies = {
       -- LSP Support
       {'neovim/nvim-lspconfig'},
