@@ -43,6 +43,7 @@ telescope.setup{
 
     find_files = {
       find_command = { "fd", "--strip-cwd-prefix","--type", "f","--no-ignore-vcs"},
+      previewer = false
     },
 
     live_grep = {

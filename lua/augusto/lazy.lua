@@ -24,7 +24,7 @@ local plugins = {
     config =function ()
       require("augusto.plugin.tokyonight")
     end,
-    cond = 'vim.g.vscode == nil',
+    cond = function() return not vim.g.vscode end,
   },
 
   {
@@ -36,28 +36,31 @@ local plugins = {
 
   {
     'nvim-treesitter/nvim-treesitter',
+    cond = (vim.g.vscode == nil),
     config =function ()
       require("augusto.plugin.treesitter")
     end,
     run = function()
       pcall(require('nvim-treesitter.install').update { with_sync = true })
     end,
-    cond = 'vim.g.vscode == nil'
   },
 
   {
     'nvim-treesitter/nvim-treesitter-textobjects',
-    cond = 'vim.g.vscode == nil',
+    cond = function() return not vim.g.vscode end,
   },
 
   {
     'nvim-treesitter/nvim-treesitter-context',
-    cond = 'vim.g.vscode == nil',
+    cond = function() return not vim.g.vscode end,
   },
 
   {
-    'p00f/nvim-ts-rainbow',
-    cond = 'vim.g.vscode == nil',
+    "andymass/vim-matchup",
+    lazy = true,
+    setup = function()
+      vim.g.matchup_matchparen_offscreen = { method = "popup" }
+    end,
   },
 
   {
@@ -66,7 +69,7 @@ local plugins = {
       require("augusto.plugin.telescope")
     end,
     dependencies = { 'nvim-lua/plenary.nvim' },
-    cond = 'vim.g.vscode == nil',
+    cond = function() return not vim.g.vscode end,
   },
 
   {
@@ -86,7 +89,7 @@ local plugins = {
       require("augusto.plugin.lualine")
     end,
     dependencies = { "kyazdani42/nvim-web-devicons"},
-    cond = 'vim.g.vscode == nil'
+    cond = function() return not vim.g.vscode end
   },
 
   {
@@ -94,7 +97,7 @@ local plugins = {
     config =function ()
       require('colorizer').setup()
     end,
-    cond = 'vim.g.vscode == nil'
+    cond = function() return not vim.g.vscode end
   },
 
   {
@@ -102,7 +105,7 @@ local plugins = {
     config =function ()
       require("augusto.plugin.toggleterm")
     end,
-    cond = 'vim.g.vscode == nil'
+    cond = function() return not vim.g.vscode end
   },
 
   {
@@ -114,7 +117,7 @@ local plugins = {
     dependencies = {
       "MunifTanjim/nui.nvim",
     },
-    cond = 'vim.g.vscode == nil',
+    cond = function() return not vim.g.vscode end,
   },
 
   {
@@ -132,18 +135,24 @@ local plugins = {
           return { { icon, guifg = color }, { " " }, { filename } }
         end, })
     end,
-    cond = 'vim.g.vscode == nil',
+    cond = function() return not vim.g.vscode end,
   },
 
   {
-    'VonHeikemen/lsp-zero.nvim',
+    "folke/which-key.nvim",
+    config = function()
+      require("which-key").setup {}
+    end
+  },
+
+  {
+    'williamboman/mason.nvim',
     config =function ()
       require("augusto.plugin.lspconfig")
     end,
     dependencies = {
       -- LSP Support
       {'neovim/nvim-lspconfig'},
-      {'williamboman/mason.nvim'},
       {'williamboman/mason-lspconfig.nvim'},
 
       -- Autocompletion
@@ -158,8 +167,9 @@ local plugins = {
       {'L3MON4D3/LuaSnip'},
       {'rafamadriz/friendly-snippets'},
     },
-    cond = 'vim.g.vscode == nil',
+    cond = function() return not vim.g.vscode end,
   },
+
 }
 
 local opts = {

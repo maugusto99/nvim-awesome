@@ -9,7 +9,6 @@ keymap("i", "<C-c>", "<Esc>")
 --Remap space as leader key
 keymap("n", "<Space>", "", opts)
 vim.g.mapleader = " "
-vim.g.maplocalleader = " "
 
 -- Disable arrow keys normal mode
 keymap("n","<left>","<nop>",opts)
@@ -29,7 +28,7 @@ keymap("n", "x", '"_x', opts)
 -- Buffer
 keymap("n", "<leader>bn", vim.cmd.bnext)
 keymap("n", "<leader>bp", vim.cmd.bNext)
-keymap("n", "<leader>bk", ":bdelete<cr>", opts)
+keymap("n", "<leader>bk", vim.cmd.bdelete, opts)
 keymap("n", "<leader>bK", ":%bdelete<cr>", opts)
 
 keymap("n", "<C-d>", "<C-d>zz")
