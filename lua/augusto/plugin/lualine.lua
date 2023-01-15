@@ -3,6 +3,7 @@ if not status_ok then
   return
 end
 
+
 lualine.setup {
   options = {
     icons_enabled = true,
@@ -45,6 +46,13 @@ lualine.setup {
     lualine_z = {}
   },
   tabline = {},
-  extensions = {}
+  extensions = {},
+  winbar = {},
+  inactive_winbar= {
+    lualine_z = {
+      {'filename'},
+      {'filetype'},
+    },
+  },
 }
 

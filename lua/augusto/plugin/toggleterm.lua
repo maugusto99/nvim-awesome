@@ -22,7 +22,7 @@ toggleterm.setup{
   },
   -- like `size`, width and height can be a number or function which is passed the current terminal
   winbar = {
-    enabled = true,
+    enabled = false,
   },
 
 -- if you only want these mappings for toggle term use term://*toggleterm#* instead

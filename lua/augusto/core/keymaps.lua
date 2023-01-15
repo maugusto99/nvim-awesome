@@ -11,24 +11,24 @@ keymap("n", "<Space>", "", opts)
 vim.g.mapleader = " "
 
 -- Disable arrow keys normal mode
-keymap("n","<left>","<nop>",opts)
-keymap("n","<up>","<nop>",opts)
-keymap("n","<down>","<nop>",opts)
-keymap("n","<right>","<nop>",opts)
+keymap("n", "<left>", "<nop>", opts)
+keymap("n", "<up>", "<nop>", opts)
+keymap("n", "<down>", "<nop>", opts)
+keymap("n", "<right>", "<nop>", opts)
 
 -- Disable arrow keys insert mode
-keymap("i","<up>","<nop>",opts)
-keymap("i","<left>","<nop>",opts)
-keymap("i","<down>","<nop>",opts)
-keymap("i","<right>","<nop>",opts)
+keymap("i", "<up>", "<nop>", opts)
+keymap("i", "<left>", "<nop>", opts)
+keymap("i", "<down>", "<nop>", opts)
+keymap("i", "<right>", "<nop>", opts)
 
 -- Do not yank with x
 keymap("n", "x", '"_x', opts)
 
 -- Buffer
-keymap("n", "<leader>bn", vim.cmd.bnext)
-keymap("n", "<leader>bp", vim.cmd.bNext)
-keymap("n", "<leader>bk", vim.cmd.bdelete, opts)
+keymap("n", "<leader>bn", ":bnext<cr>", opts)
+keymap("n", "<leader>bp", ":bNext<cr>", opts)
+keymap("n", "<leader>bk", ":bdelete<cr>", opts)
 keymap("n", "<leader>bK", ":%bdelete<cr>", opts)
 
 keymap("n", "<C-d>", "<C-d>zz")
@@ -41,3 +41,4 @@ keymap("n", "N", "Nzzzv")
 keymap("v", "J", ":m '>+1<CR>gv=gv")
 keymap("v", "K", ":m '<-2<CR>gv=gv")
 
+keymap("n", '<leader>f', vim.lsp.buf.format, opts)

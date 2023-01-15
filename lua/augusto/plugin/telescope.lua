@@ -42,7 +42,7 @@ telescope.setup{
   pickers = {
 
     find_files = {
-      find_command = { "fd", "--strip-cwd-prefix","--type", "f","--no-ignore-vcs"},
+      find_command = { "fd","--type", "f","--no-ignore-vcs", "--strip-cwd-prefix"},
       previewer = false
     },
 
@@ -76,7 +76,8 @@ telescope.setup{
     },
   }
 }
-pcall(require('telescope').load_extension, 'fzf')
+-- pcall(require('telescope').load_extension, 'fzf')
+require('telescope').load_extension('fzf')
 pcall(require('telescope').load_extension, 'undo')
 
 vim.keymap.set('n', '<leader>ff', builtin.find_files, opts)

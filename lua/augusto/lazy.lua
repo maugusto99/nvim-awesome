@@ -16,161 +16,7 @@ if not status_ok then
   return
 end
 
-local plugins = {
-
-  {
-    'folke/tokyonight.nvim',
-    lazy = false,
-    config =function ()
-      require("augusto.plugin.tokyonight")
-    end,
-    cond = function() return not vim.g.vscode end,
-  },
-
-  {
-    "numToStr/Comment.nvim",
-    config = function()
-      require("Comment").setup()
-    end,
-  },
-
-  {
-    'nvim-treesitter/nvim-treesitter',
-    cond = (vim.g.vscode == nil),
-    config =function ()
-      require("augusto.plugin.treesitter")
-    end,
-    run = function()
-      pcall(require('nvim-treesitter.install').update { with_sync = true })
-    end,
-  },
-
-  {
-    'nvim-treesitter/nvim-treesitter-textobjects',
-    cond = function() return not vim.g.vscode end,
-  },
-
-  {
-    'nvim-treesitter/nvim-treesitter-context',
-    cond = function() return not vim.g.vscode end,
-  },
-
-  {
-    "andymass/vim-matchup",
-    lazy = true,
-    setup = function()
-      vim.g.matchup_matchparen_offscreen = { method = "popup" }
-    end,
-  },
-
-  {
-    'nvim-telescope/telescope.nvim',
-    config =function ()
-      require("augusto.plugin.telescope")
-    end,
-    dependencies = { 'nvim-lua/plenary.nvim' },
-    cond = function() return not vim.g.vscode end,
-  },
-
-  {
-    'nvim-telescope/telescope-fzf-native.nvim',
-    run = 'make',
-    cond = vim.fn.executable 'make' == 1,
-  },
-
-  {
-    'debugloop/telescope-undo.nvim',
-    dependencies = { 'nvim-telescope/telescope.nvim' },
-  },
-
-  {
-    "nvim-lualine/lualine.nvim",
-    config =function ()
-      require("augusto.plugin.lualine")
-    end,
-    dependencies = { "kyazdani42/nvim-web-devicons"},
-    cond = function() return not vim.g.vscode end
-  },
-
-  {
-    'norcalli/nvim-colorizer.lua',
-    config =function ()
-      require('colorizer').setup()
-    end,
-    cond = function() return not vim.g.vscode end
-  },
-
-  {
-    "akinsho/toggleterm.nvim",
-    config =function ()
-      require("augusto.plugin.toggleterm")
-    end,
-    cond = function() return not vim.g.vscode end
-  },
-
-  {
-    "nvim-neo-tree/neo-tree.nvim",
-    branch = "v2.x",
-    config =function ()
-      require("augusto.plugin.neotree")
-    end,
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-    },
-    cond = function() return not vim.g.vscode end,
-  },
-
-  {
-    "b0o/incline.nvim",
-    config = function ()
-      require("incline").setup({
-        hide = {
-          cursorline = true,
-          focused_win = true,
-          only_win = true
-        },
-        render = function(props)
-          local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":t")
-          local icon, color = require("nvim-web-devicons").get_icon_color(filename)
-          return { { icon, guifg = color }, { " " }, { filename } }
-        end, })
-    end,
-    cond = function() return not vim.g.vscode end,
-  },
-
-  {
-    "folke/which-key.nvim",
-    config = function()
-      require("which-key").setup {}
-    end
-  },
-
-  {
-    'williamboman/mason.nvim',
-    config =function ()
-      require("augusto.plugin.lspconfig")
-    end,
-    dependencies = {
-      -- LSP Support
-      {'neovim/nvim-lspconfig'},
-      {'williamboman/mason-lspconfig.nvim'},
-
-      -- Autocompletion
-      {'hrsh7th/nvim-cmp'},
-      {'hrsh7th/cmp-buffer'},
-      {'hrsh7th/cmp-path'},
-      {'saadparwaiz1/cmp_luasnip'},
-      {'hrsh7th/cmp-nvim-lsp'},
-      {'hrsh7th/cmp-nvim-lua'},
-
-      -- Snippets
-      {'L3MON4D3/LuaSnip'},
-      {'rafamadriz/friendly-snippets'},
-    },
-    cond = function() return not vim.g.vscode end,
-  },
-
-}
+local plugins = require("augusto.plugin-list")
 
 local opts = {
   root = vim.fn.stdpath("data") .. "/lazy", -- directory where plugins will be installed
@@ -179,6 +25,8 @@ local opts = {
     version = nil,
     -- version = "*", -- enable this to try installing the latest stable versions of plugins
   },
+  -- leave nil when passing the spec as the first argument to setup()
+  spec = nil, ---@type LazySpec
   lockfile = vim.fn.stdpath("config") .. "/lazy-lock.json", -- lockfile generated after running update.
   concurrency = nil, ---@type number limit the maximum amount of concurrent tasks
   git = {
@@ -198,7 +46,7 @@ local opts = {
     -- install missing plugins on startup. This doesn't increase startup time.
     missing = true,
     -- try to load one of these colorschemes when starting an installation during startup
-    -- colorscheme = { "tokyonight" },
+    colorscheme = { "tokyonight" },
   },
   ui = {
     -- a number <1 is a percentage., >1 is a fixed size
@@ -206,20 +54,21 @@ local opts = {
     -- The border to use for the UI window. Accepts same border values as |nvim_open_win()|.
     border = "rounded",
     icons = {
-      loaded = "●",
-      not_loaded = "○",
       cmd = " ",
       config = "",
       event = "",
       ft = " ",
       init = " ",
+      import = " ",
       keys = " ",
+      lazy = "鈴 ",
+      loaded = "●",
+      not_loaded = "○",
       plugin = " ",
       runtime = " ",
       source = " ",
       start = "",
       task = "✔ ",
-      lazy = "鈴 ",
       list = {
         "●",
         "➜",
@@ -237,21 +86,15 @@ local opts = {
 
       -- open lazygit log
       ["<localleader>l"] = function(plugin)
-        require("lazy.util").open_cmd({ "lazygit", "log" }, {
+        require("lazy.util").float_term({ "lazygit", "log" }, {
           cwd = plugin.dir,
-          terminal = true,
-          close_on_exit = true,
-          enter = true,
         })
       end,
 
       -- open a terminal for the plugin dir
       ["<localleader>t"] = function(plugin)
-        require("lazy.util").open_cmd({ vim.go.shell }, {
+        require("lazy.util").float_term(nil, {
           cwd = plugin.dir,
-          terminal = true,
-          close_on_exit = true,
-          enter = true,
         })
       end,
     },
@@ -286,24 +129,32 @@ local opts = {
       -- The default is to disable on:
       --  * VimEnter: not useful to cache anything else beyond startup
       --  * BufReadPre: this will be triggered early when opening a file from the command line directly
-      disable_events = { "VimEnter", "BufReadPre" },
+      disable_events = { "UIEnter", "BufReadPre" },
       ttl = 3600 * 24 * 5, -- keep unused modules for up to 5 days
     },
     reset_packpath = true, -- reset the package path to improve startup time
     rtp = {
       reset = true, -- reset the runtime path to $VIMRUNTIME and your config directory
-      ---@type string[]
       paths = {}, -- add any custom paths here that you want to indluce in the rtp
-      ---@type string[] list any plugins you want to disable here
       disabled_plugins = {
-        "gzip",
-        "matchit",
-        "matchparen",
+        "netrw",
         "netrwPlugin",
-        "tarPlugin",
-        "tohtml",
-        "tutor",
+        "netrwSettings",
+        "netrwFileHandlers",
+        "gzip",
+        "zip",
         "zipPlugin",
+        "tar",
+        "tarPlugin",
+        "getscript",
+        "getscriptPlugin",
+        "vimball",
+        "vimballPlugin",
+        "2html_plugin",
+        "logipat",
+        "rrhelper",
+        "spellfile_plugin",
+        "matchit",
       },
     },
   },
@@ -317,4 +168,6 @@ local opts = {
     skip_if_doc_exists = true,
   },
 }
+
+vim.keymap.set("n", "<leader>l", "<cmd>:Lazy<cr>")
 lazy.setup(plugins, opts)

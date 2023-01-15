@@ -1,4 +1,3 @@
-vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
 local status_ok, neotree = pcall(require,"neo-tree")
 if not status_ok then
   return
@@ -151,10 +150,10 @@ neotree.setup({
         --".null-ls_*",
       },
     },
-    follow_current_file = false, -- This will find and focus the file in the active buffer every
+    follow_current_file = true, -- This will find and focus the file in the active buffer every
     -- time the current file is changed while the tree is open.
     group_empty_dirs = false, -- when true, empty folders will be grouped together
-    hijack_netrw_behavior = "open_default", -- netrw disabled, opening a directory opens neo-tree
+    hijack_netrw_behavior = "open_current", -- netrw disabled, opening a directory opens neo-tree
     -- in whatever position is specified in window.position
     -- "open_current",  -- netrw disabled, opening a directory opens within the
     -- window like netrw would, regardless of window.position
@@ -209,4 +208,4 @@ neotree.setup({
 })
 
 local opts = { noremap = true, silent = true }
-vim.keymap.set("n", "<leader>op",vim.cmd.NeoTreeFloatToggle , opts)
+vim.keymap.set("n", "<leader>op",":Neotree float dir=%:p:h <cr>", opts)

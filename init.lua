@@ -1,4 +1,5 @@
 require("augusto.core.options")
 require("augusto.core.keymaps")
 require("augusto.core.autocommands")
+-- require("augusto.core.statusline")
 require("augusto.lazy")
