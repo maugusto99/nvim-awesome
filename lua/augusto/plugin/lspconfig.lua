@@ -27,7 +27,7 @@ vim.fn.sign_define("DiagnosticSignInfo",
 vim.fn.sign_define("DiagnosticSignHint",
   { text = "", texthl = "DiagnosticSignHint" })
 
-local opts = { noremap=true, silent=true }
+local opts = { noremap = true, silent = true }
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
@@ -95,7 +95,7 @@ capabilities = cmp_lsp.default_capabilities(capabilities)
 -- Setup mason so it can manage external tooling
 mason.setup({
 
-ui = {
+  ui = {
     border = "rounded",
   }
 })
@@ -194,7 +194,7 @@ cmp.setup {
     end
   },
   view = {
-    entries = {name = 'custom', separator = '|' }
+    entries = { name = 'custom', separator = '|' }
   },
   sources = {
     { name = 'nvim_lsp' },
@@ -224,5 +224,3 @@ local config = {
 }
 
 vim.diagnostic.config(config)
-
-
