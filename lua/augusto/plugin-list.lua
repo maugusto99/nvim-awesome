@@ -46,10 +46,12 @@ local plugins = {
 
   {
     'nvim-treesitter/nvim-treesitter-textobjects',
+    cond = vim.g.vscode == nil,
   },
 
   {
     'nvim-treesitter/nvim-treesitter-context',
+    cond = vim.g.vscode == nil,
   },
 
   {
@@ -81,13 +83,13 @@ local plugins = {
     cond = function() return not vim.g.vscode end
   },
 
-  {
-    "akinsho/toggleterm.nvim",
-    config = function()
-      require("augusto.plugin.toggleterm")
-    end,
-    cond = function() return not vim.g.vscode end
-  },
+  -- {
+  --   "akinsho/toggleterm.nvim",
+  --   config = function()
+  --     require("augusto.plugin.toggleterm")
+  --   end,
+  --   cond = function() return not vim.g.vscode end
+  -- },
 
   {
     "nvim-neo-tree/neo-tree.nvim",

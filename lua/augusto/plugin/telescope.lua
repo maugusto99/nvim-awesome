@@ -14,6 +14,7 @@ telescope.setup {
     prompt_prefix = "  ",
     selection_caret = " ",
     sorting_strategy = "ascending",
+    previewer = false,
     layout_config = {
       height = 0.80,
       prompt_position = "top",
