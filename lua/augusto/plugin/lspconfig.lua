@@ -79,7 +79,6 @@ local on_attach = function(_, bufnr)
 end
 
 local servers = {
-  pyright = {},
   sumneko_lua = {
     Lua = {
       workspace = { checkThirdParty = false },

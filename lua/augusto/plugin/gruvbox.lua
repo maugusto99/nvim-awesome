@@ -10,7 +10,7 @@ gruvbox.setup({
   underline = true,
   bold = true,
   italic = true,
-  strikethrough = false,
+  strikethrough = true,
   invert_selection = false,
   invert_signs = false,
   invert_tabline = false,
@@ -28,6 +28,7 @@ gruvbox.setup({
     GruvboxPurpleSign = { fg = colors.purple, bg = colors.dark0_hard, reverse = false },
     GruvboxAquaSign = { fg = colors.aqua, bg = colors.dark0_hard, reverse = false },
     GruvboxOrangeSign = { fg = colors.orange, bg = colors.dark0_hard, reverse = false },
+
   }
 })
 

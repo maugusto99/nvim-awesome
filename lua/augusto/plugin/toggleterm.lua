@@ -12,7 +12,7 @@ toggleterm.setup{
   terminal_mappings = true, -- whether or not the open mapping applies in the opened terminals
   persist_size = true,
   persist_mode = true, -- if set to true (default) the previous terminal mode will be remembered
-  direction = 'horizontal',
+  direction = 'float',
   close_on_exit = true, -- close the terminal window when the process exits
   -- shell = vim.o.shell, -- change the default shell
   auto_scroll = true, -- automatically scroll to the bottom on terminal output
@@ -38,3 +38,13 @@ function _G.set_terminal_keymaps()
   vim.keymap.set('t', '<C-w>k', [[<Cmd>wincmd k<CR>]], opts)
   vim.keymap.set('t', '<C-w>l', [[<Cmd>wincmd l<CR>]], opts)
 end
+
+local Terminal  = require('toggleterm.terminal').Terminal
+
+local octave = Terminal:new({ cmd = "octave", hidden = true })
+
+function _OCTAVE_TOGGLE()
+	octave:toggle()
+end
+
+vim.keymap.set("n", "<leader>oo", "<cmd>lua _OCTAVE_TOGGLE()<CR>", {noremap = true, silent = true})

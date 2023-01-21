@@ -14,7 +14,6 @@ telescope.setup {
     prompt_prefix = "  ",
     selection_caret = " ",
     sorting_strategy = "ascending",
-    previewer = false,
     layout_config = {
       height = 0.80,
       prompt_position = "top",
@@ -44,7 +43,6 @@ telescope.setup {
 
     find_files = {
       find_command = { "fd", "--type", "f", "--no-ignore-vcs", "--strip-cwd-prefix" },
-      previewer = false
     },
 
     live_grep = {
@@ -58,21 +56,9 @@ telescope.setup {
   },
 
   extensions = {
-    undo = {
-      use_delta = true, -- this is the default
-      side_by_side = false, -- this is the default
-      mappings = { -- this whole table is the default
-        i = {
-          ["<cr>"] = require("telescope-undo.actions").yank_additions,
-          ["<S-cr>"] = require("telescope-undo.actions").yank_deletions,
-          ["<C-cr>"] = require("telescope-undo.actions").restore,
-        },
-      },
-    },
   }
 }
 pcall(require('telescope').load_extension, 'fzf')
-pcall(require('telescope').load_extension, 'undo')
 
 vim.keymap.set('n', '<leader>ff', builtin.find_files, opts)
 vim.keymap.set('n', '<leader>fF', function() builtin.find_files({ hidden = true }) end, opts)
@@ -80,6 +66,5 @@ vim.keymap.set('n', '<leader>fg', builtin.live_grep, opts)
 vim.keymap.set('n', '<leader>fb', builtin.buffers, opts)
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, opts)
 vim.keymap.set('n', '<leader>fz', builtin.current_buffer_fuzzy_find, opts)
-vim.keymap.set("n", "<leader>u", ":Telescope undo<cr>", opts)
 vim.keymap.set('n', '<leader>rf', builtin.oldfiles, opts)
 vim.keymap.set('n', '<leader>fd', builtin.diagnostics, opts)

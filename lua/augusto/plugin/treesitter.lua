@@ -15,16 +15,16 @@ configs.setup({
     "vim",
   },
 
-	-- Install parsers synchronously (only applied to `ensure_installed`)
-	sync_install = false,
+  -- Install parsers synchronously (only applied to `ensure_installed`)
+  sync_install = false,
 
-	-- Automatically install missing parsers when entering buffer
-	auto_install = true,
+  -- Automatically install missing parsers when entering buffer
+  auto_install = true,
 
-	highlight = {
-		enable = true,
-		additional_vim_regex_highlighting = true,
-	},
+  highlight = {
+    enable = true,
+    additional_vim_regex_highlighting = true,
+  },
 
   textobjects = {
     select = {
@@ -72,17 +72,21 @@ configs.setup({
   },
 
   incremental_selection = {
-      enable = true,
-      keymaps = {
-        init_selection = "gnn",
-        node_incremental = "grn",
-        scope_incremental = "grc",
-        node_decremental = "grm",
-      },
+    enable = true,
+    keymaps = {
+      init_selection = "gnn",
+      node_incremental = "grn",
+      scope_incremental = "grc",
+      node_decremental = "grm",
     },
-  indent = {enable = true},
-  matchup = {
-    enable = true,              -- mandatory, false will disable the whole extension
-    disable = { "c", "ruby" },  -- optional, list of language that will be disabled
   },
+  rainbow = {
+    enable = true,
+    -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
+    extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
+    max_file_lines = nil, -- Do not enable for files with more than n lines, int
+    -- colors = {}, -- table of hex strings
+    -- termcolors = {} -- table of colour name strings
+  },
+  indent = { enable = true },
 })

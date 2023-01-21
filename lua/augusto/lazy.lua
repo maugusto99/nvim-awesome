@@ -80,33 +80,6 @@ local opts = {
     -- If you want to use a specific browser, you can define it here
     browser = nil, ---@type string?
     throttle = 20, -- how frequently should the ui process render events
-    custom_keys = {
-      -- you can define custom key maps here.
-      -- To disable one of the defaults, set it to false
-
-      -- open lazygit log
-      ["<localleader>l"] = function(plugin)
-        require("lazy.util").float_term({ "lazygit", "log" }, {
-          cwd = plugin.dir,
-        })
-      end,
-
-      -- open a terminal for the plugin dir
-      ["<localleader>t"] = function(plugin)
-        require("lazy.util").float_term(nil, {
-          cwd = plugin.dir,
-        })
-      end,
-    },
-  },
-  diff = {
-    -- diff command <d> can be one of:
-    -- * browser: opens the github compare view. Note that this is always mapped to <K> as well,
-    --   so you can have a different command for diff <d>
-    -- * git: will run git diff and open a buffer with filetype git
-    -- * terminal_git: will open a pseudo terminal with git diff
-    -- * diffview.nvim: will open Diffview to show the diff
-    cmd = "git",
   },
   checker = {
     -- automatically check for plugin updates
@@ -154,7 +127,7 @@ local opts = {
         "logipat",
         "rrhelper",
         "spellfile_plugin",
-        "matchit",
+        -- "matchit",
       },
     },
   },
