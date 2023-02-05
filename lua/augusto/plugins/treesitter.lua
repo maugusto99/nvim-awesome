@@ -1,12 +1,13 @@
 return {
   'nvim-treesitter/nvim-treesitter',
   cond = vim.g.vscode == nil,
-  event = "BufReadPost",
+  event = { "BufReadPost", "InsertEnter" },
   config = function()
     require("nvim-treesitter.configs").setup {
 
       ensure_installed = {
         "help",
+        "regex",
         "python",
         "lua",
         "fortran",
@@ -23,7 +24,7 @@ return {
 
       highlight = {
         enable = true,
-        additional_vim_regex_highlighting = true,
+        additional_vim_regex_highlighting = false,
       },
 
       textobjects = {
@@ -82,11 +83,8 @@ return {
       },
       rainbow = {
         enable = true,
-        -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
         extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
         max_file_lines = nil, -- Do not enable for files with more than n lines, int
-        -- colors = {}, -- table of hex strings
-        -- termcolors = {} -- table of colour name strings
       },
       indent = { enable = true },
     }
@@ -96,7 +94,7 @@ return {
   end,
   dependencies = {
     'nvim-treesitter/nvim-treesitter-textobjects',
-    'nvim-treesitter/nvim-treesitter-context',
-    'mrjones2014/nvim-ts-rainbow'
+    'mrjones2014/nvim-ts-rainbow',
+    'nvim-treesitter/nvim-treesitter-context'
   }
 }

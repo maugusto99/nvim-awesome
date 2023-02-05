@@ -1,5 +1,7 @@
 return {
   "akinsho/toggleterm.nvim",
+  cond = function() return not vim.g.vscode end,
+  event = "VeryLazy",
   config = function()
     local status_ok, toggleterm = pcall(require, 'toggleterm')
     if not status_ok then
@@ -15,9 +17,9 @@ return {
       terminal_mappings = true, -- whether or not the open mapping applies in the opened terminals
       persist_size = true,
       persist_mode = true, -- if set to true (default) the previous terminal mode will be remembered
-      direction = 'float',
+      direction = 'horizontal',
       close_on_exit = true, -- close the terminal window when the process exits
-      -- shell = vim.o.shell, -- change the default shell
+      shell = "/bin/bash",
       auto_scroll = true, -- automatically scroll to the bottom on terminal output
       -- This field is only relevant if direction is set to 'float'
       float_opts = {
@@ -25,9 +27,8 @@ return {
       },
       -- like `size`, width and height can be a number or function which is passed the current terminal
       winbar = {
-        enabled = false,
+        enabled = true,
       },
-
       -- if you only want these mappings for toggle term use term://*toggleterm#* instead
       vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
     }
@@ -43,15 +44,21 @@ return {
     end
 
     local Terminal = require('toggleterm.terminal').Terminal
-
-    local octave = Terminal:new({ cmd = "octave", hidden = true })
+    local octave = Terminal:new({ cmd = "octave -q", hidden = true })
 
     function _OCTAVE_TOGGLE()
       octave:toggle()
     end
 
+    vim.api.nvim_create_user_command("Send",
+      function(_)
+        vim.api.nvim_feedkeys("ggVG", "n", false)
+        vim.cmd("ToggleTermSendVisualLines")
+      end,
+      {}
+    )
     vim.keymap.set("n", "<leader>oo", "<cmd>lua _OCTAVE_TOGGLE()<CR>", { noremap = true, silent = true })
-  end,
 
-  cond = function() return not vim.g.vscode end
+    vim.keymap.set("n", "<leader>tr", ":Send<cr>", { noremap = true, silent = true })
+  end
 }

@@ -17,7 +17,7 @@ require("lazy").setup({
     { import = "augusto.plugins" },
   },
   ui = {
-    border = "rounded",
+    border = "none",
   },
   performance = {
     reset_packpath = true, -- reset the package path to improve startup time

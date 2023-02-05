@@ -1,9 +1,9 @@
 return {
   'nvim-telescope/telescope.nvim',
-  cond = function() return not vim.g.vscode end,
   config = function()
     local actions = require('telescope.actions')
     local action_layout = require("telescope.actions.layout")
+
     require("telescope").setup {
 
       defaults = {
@@ -11,7 +11,8 @@ return {
         selection_caret = " ",
         sorting_strategy = "ascending",
         layout_config = {
-          height = 0.80,
+          width = 0.70,
+          height = 0.60,
           prompt_position = "top",
         },
 
@@ -30,35 +31,40 @@ return {
               opts = { nowait = true, silent = true }
             },
             ["<C-u>"] = false,
-            ["<M-p>"] = action_layout.toggle_preview
+            ["<M-p>"] = action_layout.toggle_preview,
+            ["<C-q>"] = function(bufnr)
+              actions.smart_send_to_qflist(bufnr)
+              require("telescope.builtin").quickfix()
+            end,
           }
         }
       },
 
       pickers = {
-
         find_files = {
           find_command = { "fd", "--type", "f", "--no-ignore-vcs", "--strip-cwd-prefix" },
+          previewer = false
+
         },
 
         live_grep = {
-          live_grep_command = { "rg" },
+          layout_strategy = "vertical",
+          previewer = false
         },
-
-        grep_string = {
-          grep_string_command = { "rg" },
+        current_buffer_fuzzy_find = {
+          previewer = false
         }
-
       },
 
-      extensions = {
-      }
+      extensions = {}
+
     }
+    require("telescope").load_extension("fzf")
   end,
   keys = {
     { "<leader>:", "<cmd>Telescope command_history<cr>", desc = "Command History" },
     { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find Files" },
-    { "<leader>fF", "<cmd>Telescope find_files hidden=true<cr>", desc = "Find Hidden Files" },
+    { "<leader>fF", "<cmd>Telescope find_files hidden=true<cr>", desc = "Grep Project" },
     { "<leader>fg", "<cmd>Telescope live_grep<cr>", desc = "Find Hidden Files" },
     -- find
     { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
@@ -76,6 +82,7 @@ return {
     { "<leader>sk", "<cmd>Telescope keymaps<cr>", desc = "Key Maps" },
     { "<leader>sm", "<cmd>Telescope marks<cr>", desc = "Jump to Mark" },
     { "<leader>so", "<cmd>Telescope vim_options<cr>", desc = "Options" },
+
   },
   dependencies = {
     'nvim-lua/plenary.nvim',

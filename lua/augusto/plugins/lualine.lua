@@ -5,12 +5,11 @@ return {
       options = {
         icons_enabled = true,
         theme = "auto",
-        -- component_separators = '|',
-        -- section_separators = '',
         component_separators = { left = '', right = '' },
         section_separators = { left = '', right = '' },
         disabled_filetypes = {
-          statusline = {},
+          inactive_winbar = { "terminal", "help" },
+          winbar = { "terminal", "help" },
         },
         ignore_focus = {},
         always_divide_middle = true,
@@ -46,10 +45,6 @@ return {
       extensions = {},
       winbar = {},
       inactive_winbar = {
-        lualine_z = {
-          { 'filename' },
-          { 'filetype' },
-        },
       },
     }
   end,
