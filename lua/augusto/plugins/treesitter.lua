@@ -81,12 +81,19 @@ return {
           node_decremental = "grm",
         },
       },
-      rainbow = {
-        enable = true,
-        extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
-        max_file_lines = nil, -- Do not enable for files with more than n lines, int
-      },
+
+      -- rainbow = {
+      --   enable = true,
+      --   extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
+      --   max_file_lines = nil, -- Do not enable for files with more than n lines, int
+      -- },
+
       indent = { enable = true },
+      matchup = {
+        enable = true, -- mandatory, false will disable the whole extension
+        disable = { "c", "ruby" }, -- optional, list of language that will be disabled
+        -- [options]
+      },
     }
   end,
   build = function()
@@ -94,7 +101,7 @@ return {
   end,
   dependencies = {
     'nvim-treesitter/nvim-treesitter-textobjects',
-    'mrjones2014/nvim-ts-rainbow',
+    -- 'mrjones2014/nvim-ts-rainbow',
     'nvim-treesitter/nvim-treesitter-context'
   }
 }

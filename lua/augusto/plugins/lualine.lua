@@ -8,11 +8,9 @@ return {
         component_separators = { left = '', right = '' },
         section_separators = { left = '', right = '' },
         disabled_filetypes = {
-          inactive_winbar = { "terminal", "help" },
-          winbar = { "terminal", "help" },
         },
         ignore_focus = {},
-        always_divide_middle = true,
+        always_divide_middle = false,
         globalstatus = true,
         refresh = {
           statusline = 1000,
@@ -44,8 +42,10 @@ return {
       tabline = {},
       extensions = {},
       winbar = {},
-      inactive_winbar = {
-      },
+      -- inactive_winbar = {
+      --   lualine_z = { { 'filename', },
+      --     { 'filetype', icon_only = true } },
+      -- },
     }
   end,
   dependencies = { "kyazdani42/nvim-web-devicons" },

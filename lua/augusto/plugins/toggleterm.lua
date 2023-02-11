@@ -23,7 +23,7 @@ return {
       auto_scroll = true, -- automatically scroll to the bottom on terminal output
       -- This field is only relevant if direction is set to 'float'
       float_opts = {
-        border = 'curved'
+        border = 'rounded'
       },
       -- like `size`, width and height can be a number or function which is passed the current terminal
       winbar = {

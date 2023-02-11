@@ -11,8 +11,8 @@ return {
         selection_caret = " ",
         sorting_strategy = "ascending",
         layout_config = {
-          width = 0.70,
-          height = 0.60,
+          width = 0.80,
+          height = 0.70,
           prompt_position = "top",
         },
 
@@ -36,6 +36,7 @@ return {
               actions.smart_send_to_qflist(bufnr)
               require("telescope.builtin").quickfix()
             end,
+            ["<C-d>"] = actions.delete_buffer,
           }
         }
       },

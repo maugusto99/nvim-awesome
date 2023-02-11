@@ -101,7 +101,7 @@ return {
       mason.setup({
 
         ui = {
-          border = "none",
+          border = "rounded",
         }
       })
 
@@ -145,7 +145,6 @@ return {
       -- LSP Support
       { 'williamboman/mason.nvim' },
       { 'williamboman/mason-lspconfig.nvim' },
-
     },
   }
 }

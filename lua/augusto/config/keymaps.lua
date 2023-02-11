@@ -35,3 +35,9 @@ keymap("n", "gx", [[:silent execute '!$BROWSER ' . shellescape(expand('<cfile>')
 -- search under cursor
 keymap("n", "gw", "*N")
 keymap("x", "gw", "*N")
+
+-- keymap("n","<C-h>", "<C-w>h")
+-- keymap("n","<C-j>", "<C-w>j")
+-- keymap("n","<C-k>", "<C-w>k")
+-- keymap("n","<C-l>", "<C-w>l")
+
