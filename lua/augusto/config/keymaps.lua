@@ -17,8 +17,6 @@ keymap("n", "x", '"_x', opts)
 -- Buffer
 keymap("n", "<leader>bd", ":bdelete<cr>", opts)
 keymap("n", "<leader>bD", ":%bdelete<cr>", opts)
-keymap("n", "[b", "<cmd>bprevious<cr>", { desc = "Prev buffer" })
-keymap("n", "]b", "<cmd>bnext<cr>", { desc = "Next buffer" })
 
 keymap("n", "<C-d>", "<C-d>zz", opts)
 keymap("n", "<C-u>", "<C-u>zz", opts)
@@ -36,8 +34,18 @@ keymap("n", "gx", [[:silent execute '!$BROWSER ' . shellescape(expand('<cfile>')
 keymap("n", "gw", "*N")
 keymap("x", "gw", "*N")
 
--- keymap("n","<C-h>", "<C-w>h")
--- keymap("n","<C-j>", "<C-w>j")
--- keymap("n","<C-k>", "<C-w>k")
--- keymap("n","<C-l>", "<C-w>l")
+-- vim unimpaired
+keymap("n", "[a", "<cmd>previous<cr>", { desc = "Prev file" })
+keymap("n", "]a", "<cmd>next<cr>", { desc = "Next file" })
+keymap("n", "[A", "<cmd>first<cr>", { desc = "First file" })
+keymap("n", "]A", "<cmd>last<cr>", { desc = "Last file" })
 
+keymap("n", "[b", "<cmd>bprevious<cr>", { desc = "Prev buffer" })
+keymap("n", "]b", "<cmd>bnext<cr>", { desc = "Next buffer" })
+keymap("n", "[B", "<cmd>bfirst<cr>", { desc = "First buffer" })
+keymap("n", "]B", "<cmd>blast<cr>", { desc = "Last buffer" })
+
+keymap("n", "[a", "<cmd>previous<cr>", { desc = "Prev file" })
+keymap("n", "]a", "<cmd>next<cr>", { desc = "Next file" })
+keymap("n", "[A", "<cmd>first<cr>", { desc = "First file" })
+keymap("n", "]A", "<cmd>last<cr>", { desc = "Last file" })
