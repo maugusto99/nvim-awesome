@@ -1,19 +1,6 @@
 return {
-	{
-		"numToStr/Comment.nvim",
-		config = function()
-			require("Comment").setup()
-		end,
-		event = { "BufRead", "InsertEnter" },
-	},
 
-	{
-		"kylechui/nvim-surround",
-		config = function()
-			require("nvim-surround").setup({})
-		end,
-		event = { "BufRead", "InsertEnter" },
-	},
+	{ "nvim-lua/plenary.nvim" },
 
 	{
 		"andymass/vim-matchup",
@@ -31,53 +18,17 @@ return {
 			return not vim.g.vscode
 		end,
 		config = function()
-			require("which-key").setup({})
-		end,
-	},
-
-	{
-		"folke/noice.nvim",
-		event = "VeryLazy",
-		opts = {
-			presets = {
-				bottom_search = true,
-				command_palette = true,
-				long_message_to_split = true,
-				lsp_doc_border = true, -- add a border to hover docs and signature help
-			},
-		},
-    -- stylua: ignore
-    keys = {
-      { "<S-Enter>",   function() require("noice").redirect(vim.fn.getcmdline()) end,                  mode = "c",                 desc = "Redirect Cmdline" },
-      { "<leader>snl", function() require("noice").cmd("last") end,                                    desc = "Noice Last Message" },
-      { "<leader>snh", function() require("noice").cmd("history") end,                                 desc = "Noice History" },
-      { "<leader>sna", function() require("noice").cmd("all") end,                                     desc = "Noice All" },
-      { "<c-f>",       function() if not require("noice.lsp").scroll(4) then return "<c-f>" end end,   silent = true,              expr = true,              desc = "Scroll forward",  mode = { "i", "n", "s" } },
-      { "<c-b>",       function() if not require("noice.lsp").scroll( -4) then return "<c-b>" end end, silent = true,              expr = true,              desc = "Scroll backward", mode = { "i", "n", "s" } },
-    },
-		cond = function()
-			return not vim.g.vscode
-		end,
-		dependencies = {
-			"rcarriga/nvim-notify",
-		},
-	},
-
-	{
-		"stevearc/dressing.nvim",
-		lazy = true,
-		init = function()
-			vim.ui.select = function(...)
-				require("lazy").load({ plugins = { "dressing.nvim" } })
-				return vim.ui.select(...)
-			end
-			vim.ui.input = function(...)
-				require("lazy").load({ plugins = { "dressing.nvim" } })
-				return vim.ui.input(...)
-			end
-		end,
-		cond = function()
-			return not vim.g.vscode
+			vim.o.timeout = true
+			vim.o.timeoutlen = 300
+			require("which-key").setup({
+				plugins = {
+					marks = false, -- shows a list of your marks on ' and `
+					registers = false, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
+					spelling = {
+						enabled = false, -- enabling this will show WhichKey when pressing z= to select spelling suggestions
+					},
+				},
+			})
 		end,
 	},
 
@@ -85,7 +36,7 @@ return {
 		"NvChad/nvim-colorizer.lua",
 		event = "BufReadPre",
 		opts = {
-			filetypes = { "*", "!lazy" },
+			filetypes = { "*", "!lazy", "!telescope" },
 			buftype = { "*", "!prompt", "!nofile" },
 			user_default_options = {
 				RGB = true, -- #RGB hex codes

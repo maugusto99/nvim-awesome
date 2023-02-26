@@ -78,17 +78,14 @@ return {
 			end
 
 			require("cmp").setup({
-
 				completion = {
 					completeopt = "menu,menuone,noinsert",
 				},
-
 				snippet = {
 					expand = function(args)
 						require("luasnip").lsp_expand(args.body)
 					end,
 				},
-
 				mapping = cmp.mapping.preset.insert({
 					["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
 					["<C-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
@@ -97,7 +94,7 @@ return {
 					["<C-e>"] = cmp.mapping.abort(),
 					["<C-Space>"] = cmp.mapping.complete(),
 					["<CR>"] = cmp.mapping.confirm({
-						behavior = cmp.ConfirmBehavior.Replace,
+						-- behavior = cmp.ConfirmBehavior.Replace,
 						select = true,
 					}),
 					["<Tab>"] = cmp.mapping(function(fallback)
@@ -125,25 +122,28 @@ return {
 						vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
 						-- Source
 						vim_item.menu = ({
-							buffer = "[Buffer]",
 							nvim_lsp = "[LSP]",
+							buffer = "[Buffer]",
 							luasnip = "[LuaSnip]",
 							nvim_lua = "[Lua]",
 						})[entry.source.name]
 						return vim_item
 					end,
 				},
-
 				view = {
 					entries = { name = "custom", separator = "|" },
 				},
-
 				sources = {
 					{ name = "nvim_lsp" },
 					{ name = "luasnip" },
 					{ name = "buffer" },
 					{ name = "path" },
 					{ name = "nvim_lua" },
+				},
+				experimental = {
+					ghost_text = {
+						hl_group = "LspCodeLens",
+					},
 				},
 			})
 		end,

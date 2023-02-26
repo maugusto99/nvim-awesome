@@ -4,6 +4,7 @@ return {
 		cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles" },
 		config = true,
 		keys = { { "<leader>gd", "<cmd>DiffviewOpen<cr>", desc = "DiffView" } },
+		enabled = false,
 	},
 	{
 		"lewis6991/gitsigns.nvim",

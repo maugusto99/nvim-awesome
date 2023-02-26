@@ -25,22 +25,16 @@ return {
 			incremental_selection = {
 				enable = true,
 				keymaps = {
-					init_selection = "gnn",
-					node_incremental = "grn",
-					scope_incremental = "grc",
-					node_decremental = "grm",
+					init_selection = "<C-space>",
+					node_incremental = "<C-space>",
+					scope_incremental = "<nop>",
+					node_decremental = "<bs>",
 				},
 			},
-			-- rainbow = {
-			--   enable = true,
-			--   extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
-			--   max_file_lines = nil, -- Do not enable for files with more than n lines, int
-			-- },
 
 			indent = { enable = true },
 			matchup = {
 				enable = true, -- mandatory, false will disable the whole extension
-				-- disable = { "c", "ruby" }, -- optional, list of language that will be disabled
 			},
 		})
 	end,
