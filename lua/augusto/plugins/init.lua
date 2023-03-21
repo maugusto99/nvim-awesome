@@ -53,12 +53,4 @@ return {
 			},
 		},
 	},
-
-	{
-		"jvirtanen/vim-octave",
-		cond = function()
-			return not vim.g.vscode
-		end,
-		ft = "octave",
-	},
 }
