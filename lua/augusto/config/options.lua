@@ -43,9 +43,18 @@ opt.winminwidth = 5 -- Minimum window width
 opt.wrap = false -- Disable line wrap
 opt.showcmd = false -- Disable show keDisable line wrapy
 
+vim.opt.fillchars = {
+  foldopen = "",
+  foldclose = "",
+  fold = " ",
+  foldsep = " ",
+  diff = "╱",
+  eob = " ",
+}
+
 if vim.fn.has("nvim-0.9.0") == 1 then
   opt.splitkeep = "screen"
-  opt.shortmess:append { C = true }
+  opt.shortmess:append({ C = true })
 end
 
 -- Fix markdown indentation settings

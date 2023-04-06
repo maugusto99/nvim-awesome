@@ -59,21 +59,12 @@ return {
         },
       },
       extensions = {
-        undo = {
-          use_delta = true,
-          side_by_side = false,
-          layout_strategy = "horizontal",
-          layout_config = {
-            preview_width = 0.8,
-          },
-        },
         fzf = {
           fuzzy = false, -- false will only do exact matching
         },
       },
     })
     require("telescope").load_extension("fzf")
-    require("telescope").load_extension("undo")
   end,
   --stylua: ignore
   keys = {
@@ -88,7 +79,7 @@ return {
     { "<leader>gc", "<cmd>Telescope git_commits<CR>",                   desc = "commits" },
     { "<leader>gs", "<cmd>Telescope git_status<CR>",                    desc = "status" },
     -- search
-    { "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>",     desc = "Buffer" },
+    -- { "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>",     desc = "Buffer" },
     { "<leader>sc", "<cmd>Telescope command_history<cr>",               desc = "Command History" },
     { "<leader>sC", "<cmd>Telescope commands<cr>",                      desc = "Commands" },
     { "<leader>sd", "<cmd>Telescope lsp_definitions<cr>",               desc = "Definitions" },
@@ -100,7 +91,6 @@ return {
     { "<leader>so", "<cmd>Telescope vim_options<cr>",                   desc = "Options" },
     { "<leader>Ds", "<cmd>Telescope lsp_document_symbols<cr>",          desc = "[D]ocument [S]ymbols" },
     { "<leader>ws", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "[W]orkspace [S]ymbols" },
-    { "<leader>ut", "<cmd>Telescope undo<cr>",                          desc = "[U]ndo[T]ree" },
   },
   dependencies = {
     {
@@ -108,7 +98,6 @@ return {
       build = "make",
       cond = vim.fn.executable("make") == 1,
     },
-    "debugloop/telescope-undo.nvim",
   },
   cond = function()
     return not vim.g.vscode

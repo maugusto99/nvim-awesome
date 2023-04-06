@@ -61,25 +61,25 @@ return {
     enabled = true,
   },
 
-  {
-    "luisiacc/gruvbox-baby",
-    enabled = false,
-    priority = 1000,
-    lazy = false,
-    config = function()
-      vim.g.gruvbox_baby_highlights = {
-        MatchParen = { fg = "#fabd2f", bg = "NONE", style = "bold" },
-        MatchWord = { fg = "#fabd2f", bg = "NONE", style = "bold" },
-      }
-      vim.g.gruvbox_baby_use_original_palette = true
-      vim.g.gruvbox_baby_function_style = "bold"
-      vim.g.gruvbox_baby_keyword_style = "italic"
-      vim.g.gruvbox_baby_background_color = "dark"
-      vim.g.gruvbox_baby_telescope_theme = 1
-      vim.g.gruvbox_baby_transparent_mode = 0
-
-      -- Load the colorscheme
-      vim.cmd([[colorscheme gruvbox-baby]])
-    end,
-  },
+  -- {
+  --   "luisiacc/gruvbox-baby",
+  --   enabled = true,
+  --   priority = 1000,
+  --   lazy = false,
+  --   config = function()
+  --     vim.g.gruvbox_baby_highlights = {
+  --       MatchParen = { fg = "#fabd2f", bg = "NONE", style = "bold" },
+  --       MatchWord = { fg = "#fabd2f", bg = "NONE", style = "bold" },
+  --     }
+  --     vim.g.gruvbox_baby_use_original_palette = true
+  --     vim.g.gruvbox_baby_function_style = "bold"
+  --     vim.g.gruvbox_baby_keyword_style = "italic"
+  --     vim.g.gruvbox_baby_background_color = "dark"
+  --     vim.g.gruvbox_baby_telescope_theme = 1
+  --     vim.g.gruvbox_baby_transparent_mode = 0
+  --
+  --     -- Load the colorscheme
+  --     vim.cmd([[colorscheme gruvbox-baby]])
+  --   end,
+  -- },
 }

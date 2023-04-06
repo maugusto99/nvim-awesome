@@ -7,6 +7,7 @@ return {
       ensure_installed = {
         "help",
         "regex",
+        "diff",
         "python",
         "lua",
         "bash",
@@ -21,7 +22,7 @@ return {
       -- Install parsers synchronously (only applied to `ensure_installed`)
       sync_install = false,
       -- Automatically install missing parsers when entering buffer
-      auto_install = false,
+      auto_install = true,
       highlight = {
         enable = true,
         additional_vim_regex_highlighting = false,
@@ -36,7 +37,7 @@ return {
           node_decremental = "<bs>",
         },
       },
-      -- indent = { enable = true },
+      indent = { enable = true },
       matchup = {
         enable = true, -- mandatory, false will disable the whole extension
       },
@@ -46,6 +47,6 @@ return {
     pcall(require("nvim-treesitter.install").update({ with_sync = true }))
   end,
   dependencies = {
-    "nvim-treesitter/nvim-treesitter-context",
+    -- "nvim-treesitter/nvim-treesitter-context",
   },
 }

@@ -3,7 +3,12 @@ return {
     "stevearc/oil.nvim",
     keys = { { "-", ":Oil<cr>", desc = "Open parent directory" } },
     init = function()
-      require("oil").setup({})
+      require("oil").setup({
+        view_options = {
+          show_hidden = true,
+          skip_confirm_for_simple_edits = true,
+        },
+      })
     end,
     enabled = true,
   },
