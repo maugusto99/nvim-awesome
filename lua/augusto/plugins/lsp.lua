@@ -35,7 +35,7 @@ return {
           -- nls.builtins.formatting.prettierd,
           nls.builtins.formatting.stylua,
           nls.builtins.formatting.beautysh,
-          nls.builtins.diagnostics.flake8,
+          nls.builtins.diagnostics.ruff,
           nls.builtins.diagnostics.shellcheck,
         },
       }
@@ -118,7 +118,7 @@ return {
             },
           },
         },
-        pylsp = {},
+        ruff_lsp = {},
         fortls = {
           cmd = {
             "fortls",

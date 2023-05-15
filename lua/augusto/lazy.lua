@@ -17,9 +17,13 @@ require("lazy").setup({
     { import = "augusto.plugins" },
   },
   ui = {
-    border = "rounded",
+    border = "none",
   },
+  checker = { enabled = false }, -- automatically check for plugin updates
   performance = {
+    cache = {
+      enabled = true,
+    },
     reset_packpath = true, -- reset the package path to improve startup time
     rtp = {
       reset = true, -- reset the runtime path to $VIMRUNTIME and your config directory

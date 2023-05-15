@@ -92,19 +92,19 @@ return {
         function() require("noice").redirect(vim.fn.getcmdline()) end,
         mode = "c",
         desc =
-        "Redirect Cmdline"
+          "Redirect Cmdline"
       },
       {
         "<leader>snl",
         function() require("noice").cmd("last") end,
         desc =
-        "Noice Last Message"
+          "Noice Last Message"
       },
       {
         "<leader>snh",
         function() require("noice").cmd("history") end,
         desc =
-        "Noice History"
+          "Noice History"
       },
       { "<leader>sna", function() require("noice").cmd("all") end, desc = "Noice All" },
       {
@@ -113,7 +113,7 @@ return {
         silent = true,
         expr = true,
         desc =
-        "Scroll forward",
+          "Scroll forward",
         mode = {
           "i", "n", "s" }
       },
@@ -123,7 +123,7 @@ return {
         silent = true,
         expr = true,
         desc =
-        "Scroll backward",
+          "Scroll backward",
         mode = {
           "i", "n", "s" }
       },
@@ -141,6 +141,7 @@ return {
   {
     "stevearc/dressing.nvim",
     lazy = true,
+    enabled = true,
     init = function()
       vim.ui.select = function(...)
         require("lazy").load({ plugins = { "dressing.nvim" } })

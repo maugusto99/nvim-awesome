@@ -79,7 +79,7 @@ return {
     { "<leader>gc", "<cmd>Telescope git_commits<CR>",                   desc = "commits" },
     { "<leader>gs", "<cmd>Telescope git_status<CR>",                    desc = "status" },
     -- search
-    -- { "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>",     desc = "Buffer" },
+    { "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>",     desc = "Buffer" },
     { "<leader>sc", "<cmd>Telescope command_history<cr>",               desc = "Command History" },
     { "<leader>sC", "<cmd>Telescope commands<cr>",                      desc = "Commands" },
     { "<leader>sd", "<cmd>Telescope lsp_definitions<cr>",               desc = "Definitions" },

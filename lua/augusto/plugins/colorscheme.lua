@@ -22,64 +22,34 @@ return {
         hide_inactive_statusline = false, -- Enabling this option, will hide inactive statuslines and replace them with a thin border instead. Should work with the standard **StatusLine** and **LuaLine**.
         dim_inactive = false, -- dims inactive windows
         lualine_bold = false, -- When `true`, section headers in the lualine theme will be bold
-        on_highlights = function(hl, c)
-          local prompt = "#2d3149"
-          hl.TelescopeNormal = {
-            bg = c.bg_dark,
-            fg = c.fg_dark,
-          }
-          hl.TelescopeBorder = {
-            bg = c.bg_dark,
-            fg = c.bg_dark,
-          }
-          hl.TelescopePromptNormal = {
-            bg = prompt,
-          }
-          hl.TelescopePromptBorder = {
-            bg = prompt,
-            fg = prompt,
-          }
-          hl.TelescopePromptTitle = {
-            bg = prompt,
-            fg = prompt,
-          }
-          hl.TelescopePreviewTitle = {
-            bg = c.bg_dark,
-            fg = c.bg_dark,
-          }
-          hl.TelescopeResultsTitle = {
-            bg = c.bg_dark,
-            fg = c.bg_dark,
-          }
-        end,
       })
-      vim.cmd("colorscheme tokyonight")
+      vim.o.background = "dark"
+      vim.cmd([[colorscheme tokyonight]])
     end,
     cond = function()
       return not vim.g.vscode
     end,
-    enabled = true,
+    enabled = false,
   },
+  {
+    "luisiacc/gruvbox-baby",
+    enabled = true,
+    priority = 1000,
+    lazy = false,
+    config = function()
+      vim.g.gruvbox_baby_highlights = {
+        MatchParen = { fg = "#fabd2f", bg = "NONE", style = "bold" },
+        MatchWord = { fg = "#fabd2f", bg = "NONE", style = "bold" },
+      }
+      vim.g.gruvbox_baby_use_original_palette = true
+      vim.g.gruvbox_baby_function_style = "bold"
+      vim.g.gruvbox_baby_keyword_style = "italic"
+      vim.g.gruvbox_baby_background_color = "dark"
+      vim.g.gruvbox_baby_telescope_theme = 1
+      vim.g.gruvbox_baby_transparent_mode = 0
 
-  -- {
-  --   "luisiacc/gruvbox-baby",
-  --   enabled = true,
-  --   priority = 1000,
-  --   lazy = false,
-  --   config = function()
-  --     vim.g.gruvbox_baby_highlights = {
-  --       MatchParen = { fg = "#fabd2f", bg = "NONE", style = "bold" },
-  --       MatchWord = { fg = "#fabd2f", bg = "NONE", style = "bold" },
-  --     }
-  --     vim.g.gruvbox_baby_use_original_palette = true
-  --     vim.g.gruvbox_baby_function_style = "bold"
-  --     vim.g.gruvbox_baby_keyword_style = "italic"
-  --     vim.g.gruvbox_baby_background_color = "dark"
-  --     vim.g.gruvbox_baby_telescope_theme = 1
-  --     vim.g.gruvbox_baby_transparent_mode = 0
-  --
-  --     -- Load the colorscheme
-  --     vim.cmd([[colorscheme gruvbox-baby]])
-  --   end,
-  -- },
+      -- Load the colorscheme
+      vim.cmd([[colorscheme gruvbox-baby]])
+    end,
+  },
 }
