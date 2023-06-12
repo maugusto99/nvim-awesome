@@ -1,27 +1,5 @@
 return {
   {
-    "b0o/incline.nvim",
-    event = "VeryLazy",
-    config = function()
-      require("incline").setup({
-        hide = {
-          cursorline = true,
-          focused_win = true,
-          only_win = true,
-        },
-        render = function(props)
-          local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":t")
-          local icon, color = require("nvim-web-devicons").get_icon_color(filename)
-          return { { icon, guifg = color }, { " " }, { filename } }
-        end,
-      })
-    end,
-    cond = function()
-      return not vim.g.vscode
-    end,
-  },
-
-  {
     "nvim-lualine/lualine.nvim",
     config = function()
       require("lualine").setup({
@@ -64,8 +42,11 @@ return {
         winbar = {},
       })
     end,
-    dependencies = { "kyazdani42/nvim-web-devicons" },
+    dependencies = { "nvim-tree/nvim-web-devicons" },
     event = "VeryLazy",
+    cond = function()
+      return not vim.g.vscode
+    end,
   },
 
   -- {

@@ -5,6 +5,7 @@ return {
   config = function()
     local actions = require("telescope.actions")
     local action_layout = require("telescope.actions.layout")
+    local trouble = require("trouble.providers.telescope")
 
     require("telescope").setup({
       defaults = {
@@ -21,8 +22,10 @@ return {
         mappings = {
           n = {
             ["<M-p>"] = action_layout.toggle_preview,
+            ["<c-t>"] = trouble.open_with_trouble,
           },
           i = {
+            ["<c-t>"] = trouble.open_with_trouble,
             ["<C-j>"] = {
               actions.move_selection_next,
               type = "action",
@@ -62,8 +65,18 @@ return {
         fzf = {
           fuzzy = false, -- false will only do exact matching
         },
+        undo = {
+          side_by_side = false,
+          layout_config = {
+            width = 0.90,
+            height = 0.90,
+            prompt_position = "top",
+            preview_width = 0.8,
+          },
+        },
       },
     })
+    require("telescope").load_extension("undo")
     require("telescope").load_extension("fzf")
   end,
   --stylua: ignore
@@ -89,6 +102,7 @@ return {
     { "<leader>sk", "<cmd>Telescope keymaps<cr>",                       desc = "Key Maps" },
     { "<leader>sm", "<cmd>Telescope marks<cr>",                         desc = "Jump to Mark" },
     { "<leader>so", "<cmd>Telescope vim_options<cr>",                   desc = "Options" },
+    { "<leader>u",  "<cmd>Telescope undo<cr>",                          desc = "Undo" },
     { "<leader>Ds", "<cmd>Telescope lsp_document_symbols<cr>",          desc = "[D]ocument [S]ymbols" },
     { "<leader>ws", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "[W]orkspace [S]ymbols" },
   },
@@ -98,6 +112,7 @@ return {
       build = "make",
       cond = vim.fn.executable("make") == 1,
     },
+    { "debugloop/telescope-undo.nvim" },
   },
   cond = function()
     return not vim.g.vscode

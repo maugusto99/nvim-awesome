@@ -17,7 +17,7 @@ require("lazy").setup({
     { import = "augusto.plugins" },
   },
   ui = {
-    border = "none",
+    border = "rounded",
   },
   checker = { enabled = false }, -- automatically check for plugin updates
   performance = {

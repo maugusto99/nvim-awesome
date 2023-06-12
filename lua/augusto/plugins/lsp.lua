@@ -32,11 +32,8 @@ return {
       local nls = require("null-ls")
       return {
         sources = {
-          -- nls.builtins.formatting.prettierd,
           nls.builtins.formatting.stylua,
           nls.builtins.diagnostics.ruff,
-          -- nls.builtins.formatting.beautysh,
-          -- nls.builtins.diagnostics.shellcheck,
         },
       }
     end,
@@ -119,17 +116,6 @@ return {
           },
         },
         ruff_lsp = {},
-        fortls = {
-          cmd = {
-            "fortls",
-            "--notify_init",
-            "--hover_signature",
-            "--hover_language=fortran",
-            "--use_signature_help",
-          },
-          filetypes = { "fortran" },
-          settings = {},
-        },
       }
       require("mason").setup()
 
