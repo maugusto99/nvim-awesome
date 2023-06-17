@@ -18,6 +18,7 @@ return {
           width = 0.90,
           height = 0.90,
           prompt_position = "top",
+          preview_width = 0.6,
         },
         mappings = {
           n = {

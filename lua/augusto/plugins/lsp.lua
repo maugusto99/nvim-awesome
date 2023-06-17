@@ -115,7 +115,7 @@ return {
             },
           },
         },
-        ruff_lsp = {},
+        pylsp = {},
       }
       require("mason").setup()
 

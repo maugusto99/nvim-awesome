@@ -10,6 +10,7 @@ return {
         },
       })
     end,
+    -- dependencies = { "nvim-tree/nvim-web-devicons" },
     enabled = true,
   },
 }
