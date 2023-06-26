@@ -68,6 +68,7 @@ return {
         },
         undo = {
           side_by_side = false,
+          use_delta = false,
           layout_config = {
             width = 0.90,
             height = 0.90,

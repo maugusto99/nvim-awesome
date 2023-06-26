@@ -33,6 +33,7 @@ return {
       return {
         sources = {
           nls.builtins.formatting.stylua,
+          nls.builtins.diagnostics.shellcheck,
           nls.builtins.diagnostics.ruff,
         },
       }
