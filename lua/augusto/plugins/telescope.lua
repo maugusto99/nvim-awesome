@@ -9,6 +9,11 @@ return {
 
     require("telescope").setup({
       defaults = {
+        -- borderchars = {
+        --   prompt = { "─", " ", " ", " ", "─", "─", " ", " " },
+        --   results = { " " },
+        --   preview = { " " },
+        -- },
         prompt_prefix = " ",
         selection_caret = " ",
         dynamic_preview_title = true,
@@ -18,7 +23,6 @@ return {
           width = 0.90,
           height = 0.90,
           prompt_position = "top",
-          preview_width = 0.6,
         },
         mappings = {
           n = {
@@ -27,6 +31,13 @@ return {
           },
           i = {
             ["<c-t>"] = trouble.open_with_trouble,
+            ["<C-d>"] = function(prompt_bufnr)
+              local selection = require("telescope.actions.state").get_selected_entry()
+              local dir = vim.fn.fnamemodify(selection.path, ":p:h")
+              require("telescope.actions").close(prompt_bufnr)
+              -- Depending on what you want put `cd`, `lcd`, `tcd`
+              vim.cmd(string.format("silent lcd %s", dir))
+            end,
             ["<C-j>"] = {
               actions.move_selection_next,
               type = "action",

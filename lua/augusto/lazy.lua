@@ -19,6 +19,9 @@ require("lazy").setup({
   ui = {
     border = "rounded",
   },
+  install = {
+    colorscheme = { "gruvbox-baby", "tokyonight", "dracula" },
+  },
   checker = { enabled = false }, -- automatically check for plugin updates
   performance = {
     cache = {
@@ -26,12 +29,10 @@ require("lazy").setup({
     },
     reset_packpath = true, -- reset the package path to improve startup time
     rtp = {
-      reset = true, -- reset the runtime path to $VIMRUNTIME and your config directory
-      paths = {}, -- add any custom paths here that you want to indluce in the rtp
+      reset = true,        -- reset the runtime path to $VIMRUNTIME and your config directory
+      paths = {},          -- add any custom paths here that you want to indluce in the rtp
       disabled_plugins = {
         "gzip",
-        "matchit",
-        "matchparen",
         "netrwPlugin",
         "rplugin",
         "tarPlugin",

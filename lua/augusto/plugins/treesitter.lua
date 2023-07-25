@@ -1,7 +1,6 @@
 return {
   "nvim-treesitter/nvim-treesitter",
   cond = vim.g.vscode == nil,
-  event = { "BufReadPost", "InsertEnter" },
   config = function()
     require("nvim-treesitter.configs").setup({
       ensure_installed = {
@@ -15,9 +14,8 @@ return {
         "matlab",
         "markdown",
         "markdown_inline",
-        "fortran",
       },
-      -- ignore_install = { "fortran" },
+      ignore_install = { "fortran" },
       -- Install parsers synchronously (only applied to `ensure_installed`)
       sync_install = false,
       -- Automatically install missing parsers when entering buffer
@@ -46,6 +44,7 @@ return {
     pcall(require("nvim-treesitter.install").update({ with_sync = true }))
   end,
   dependencies = {
-    -- "nvim-treesitter/nvim-treesitter-context",
+    { "nvim-treesitter/nvim-treesitter-context", }
   },
+
 }

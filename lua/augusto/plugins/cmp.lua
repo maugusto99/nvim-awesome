@@ -25,8 +25,8 @@ return {
         silent = true,
         mode = "i",
       },
-      { "<tab>",   function() require("luasnip").jump(1) end,   mode = "s" },
-      { "<s-tab>", function() require("luasnip").jump(-1) end,  mode = { "i", "s" } },
+      { "<tab>",   function() require("luasnip").jump(1) end,  mode = "s" },
+      { "<s-tab>", function() require("luasnip").jump(-1) end, mode = { "i", "s" } },
     },
   },
 
@@ -72,16 +72,10 @@ return {
         Operator = "",
         TypeParameter = "",
       }
-      local status_cmp_ok, cmp = pcall(require, "cmp")
-      if not status_cmp_ok then
-        return
-      end
 
-      local status_luasnip_ok, luasnip = pcall(require, "luasnip")
-      if not status_luasnip_ok then
-        return
-      end
 
+      local cmp = require("cmp")
+      local luasnip = require("luasnip")
 
       require("cmp").setup({
         completion = {

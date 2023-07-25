@@ -5,8 +5,8 @@ local opts = { noremap = true, silent = true }
 
 vim.g.mapleader = " "
 -- ctrl c == esc
-keymap("i", "<C-c>", "<Esc>", opts)
-keymap("i", "jk", "<Esc>", opts)
+-- keymap("i", "<C-c>", "<Esc>", opts)
+-- keymap("i", "jk", "<Esc>", opts)
 
 --Remap space as leader key
 keymap("n", "<Space>", "", opts)
@@ -27,8 +27,13 @@ keymap("n", "N", "Nzzzv", opts)
 -- Stay in indent mode
 keymap("v", "J", ":m '>+1<CR>gv=gv", opts)
 keymap("v", "K", ":m '<-2<CR>gv=gv", opts)
-keymap("n", "gx", [[:silent execute '!$BROWSER ' . shellescape(expand('<cfile>'), 1)<CR>]], opts)
 
 -- search under cursor
 keymap("n", "gw", "*N")
 keymap("x", "gw", "*N")
+
+
+keymap('n', '<space>e', vim.diagnostic.open_float)
+keymap('n', '[d', vim.diagnostic.goto_prev)
+keymap('n', ']d', vim.diagnostic.goto_next)
+keymap('n', '<space>q', vim.diagnostic.setloclist)

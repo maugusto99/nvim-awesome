@@ -1,22 +1,19 @@
 return {
   {
-    "echasnovski/mini.comment",
-    version = false,
+    'numToStr/Comment.nvim',
     config = function()
-      require("mini.comment").setup()
+      require('Comment').setup()
     end,
-    event = { "BufRead", "InsertEnter" },
+    event = "VeryLazy",
   },
-
   {
     "echasnovski/mini.bracketed",
     version = false,
     config = function()
       require("mini.bracketed").setup()
     end,
-    event = "BufReadPost",
+    event = "VeryLazy",
   },
-
   {
     "echasnovski/mini.hipatterns",
     version = false,
@@ -36,14 +33,15 @@ return {
         },
       })
     end,
-    event = { "BufRead", "InsertEnter" },
+    event = "VeryLazy",
   },
   {
-    "echasnovski/mini.surround",
-    version = false,
+    "kylechui/nvim-surround",
+    version = "*", -- Use for stability; omit to use `main` branch for the latest features
+    event = "VeryLazy",
     config = function()
-      require("mini.surround").setup()
-    end,
-    event = { "BufRead", "InsertEnter" },
-  },
+      require("nvim-surround").setup({
+      })
+    end
+  }
 }
