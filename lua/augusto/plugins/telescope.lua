@@ -91,6 +91,7 @@ return {
     })
     require("telescope").load_extension("undo")
     require("telescope").load_extension("fzf")
+    require("telescope").load_extension("notify")
   end,
   --stylua: ignore
   keys = {
@@ -111,13 +112,15 @@ return {
     { "<leader>sd", "<cmd>Telescope lsp_definitions<cr>",               desc = "Definitions" },
     { "<leader>sr", "<cmd>Telescope lsp_references<cr>",                desc = "References" },
     { "<leader>sh", "<cmd>Telescope help_tags<cr>",                     desc = "Help Pages" },
-    { "<leader>sH", "<cmd>Telescope highlights<cr>",                    desc = "Search Highlight Groups" },
     { "<leader>sk", "<cmd>Telescope keymaps<cr>",                       desc = "Key Maps" },
     { "<leader>sm", "<cmd>Telescope marks<cr>",                         desc = "Jump to Mark" },
     { "<leader>so", "<cmd>Telescope vim_options<cr>",                   desc = "Options" },
-    { "<leader>u",  "<cmd>Telescope undo<cr>",                          desc = "Undo" },
     { "<leader>Ds", "<cmd>Telescope lsp_document_symbols<cr>",          desc = "[D]ocument [S]ymbols" },
     { "<leader>ws", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "[W]orkspace [S]ymbols" },
+    -- undo
+    { "<leader>u",  "<cmd>Telescope undo<cr>",                          desc = "Undo" },
+    -- Notifications
+    { "<leader>nn", "<cmd>Telescope notify<cr>",                        desc = "Notifications" },
   },
   dependencies = {
     {

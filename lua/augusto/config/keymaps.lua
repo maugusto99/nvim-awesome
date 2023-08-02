@@ -1,39 +1,39 @@
 -- Shorten function name
 local keymap = vim.keymap.set
 
-local opts = { noremap = true, silent = true }
-
-vim.g.mapleader = " "
--- ctrl c == esc
--- keymap("i", "<C-c>", "<Esc>", opts)
--- keymap("i", "jk", "<Esc>", opts)
+local function description(desc)
+  return { noremap = true, silent = true, desc = desc }
+end
 
 --Remap space as leader key
-keymap("n", "<Space>", "", opts)
+vim.g.mapleader = " "
+keymap("n", "<Space>", "", description())
 
 -- Do not yank with x
-keymap("n", "x", '"_x', opts)
+keymap("n", "x", '"_x', description())
 
 -- Buffer
-keymap("n", "<leader>bd", ":bdelete<cr>", opts)
-keymap("n", "<leader>bD", ":%bdelete<cr>", opts)
+keymap("n", "<leader>bd", ":bdelete<cr>", description())
+keymap("n", "<leader>cd", ":cd %:p:h<CR>:pwd<CR>", description())
+keymap("n", "<leader>bD", ":%bdelete<cr>", description())
 
-keymap("n", "<C-d>", "<C-d>zz", opts)
-keymap("n", "<C-u>", "<C-u>zz", opts)
-keymap("n", "n", "nzzzv", opts)
-keymap("n", "N", "Nzzzv", opts)
+keymap("n", "<C-d>", "<C-d>zz", description())
+keymap("n", "<C-u>", "<C-u>zz", description())
+keymap("n", "n", "nzzzv", description())
+keymap("n", "N", "Nzzzv", description())
 
 -- Visual --
 -- Stay in indent mode
-keymap("v", "J", ":m '>+1<CR>gv=gv", opts)
-keymap("v", "K", ":m '<-2<CR>gv=gv", opts)
+keymap("v", "J", ":m '>+1<CR>gv=gv", description())
+keymap("v", "K", ":m '<-2<CR>gv=gv", description())
 
 -- search under cursor
 keymap("n", "gw", "*N")
 keymap("x", "gw", "*N")
 
+-- Diagnostics
+keymap('n', '<space>q', vim.diagnostic.setloclist, description("Loclist"))
+keymap('n', '<space>e', vim.diagnostic.open_float, description("Diagnostic float"))
 
-keymap('n', '<space>e', vim.diagnostic.open_float)
-keymap('n', '[d', vim.diagnostic.goto_prev)
-keymap('n', ']d', vim.diagnostic.goto_next)
-keymap('n', '<space>q', vim.diagnostic.setloclist)
+-- Make
+keymap('n', '<F10>','<cmd>make<cr>',description('Use make'))

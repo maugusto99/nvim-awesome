@@ -4,7 +4,6 @@ return {
   cond = function()
     return not vim.g.vscode
   end,
-  event = "VeryLazy",
   config = function()
     require("toggleterm").setup({
       shade_terminals = false,
@@ -15,7 +14,7 @@ return {
       terminal_mappings = true, -- whether or not the open mapping applies in the opened terminals
       persist_size = true,
       persist_mode = true,      -- if set to true (default) the previous terminal mode will be remembered
-      direction = "float",
+      direction = "horizontal",
       close_on_exit = true,     -- close the terminal window when the process exits
       shell = "/bin/fish",
       auto_scroll = true,       -- automatically scroll to the bottom on terminal output
@@ -40,21 +39,23 @@ return {
       vim.keymap.set("t", "<C-w>l", [[<Cmd>wincmd l<CR>]], opts)
     end
 
-    local Terminal = require("toggleterm.terminal").Terminal
-    local octave = Terminal:new({ cmd = "octave -q", hidden = true, direction = "horizontal" })
+    local terminal = require("toggleterm")
+    local ft_cmds = {
+      python = "python3 " .. vim.fn.expand('%'),
+      matlab = "octave " .. vim.fn.expand('%'),
+    }
 
-    function _OCTAVE_TOGGLE()
-      octave:toggle()
-    end
-
-    vim.api.nvim_create_user_command("Send", function(_)
-      vim.api.nvim_feedkeys("ggVG", "n", false)
-      vim.cmd("ToggleTermSendVisualLines")
-    end, {})
-
-    vim.keymap.set("n", "<leader>.", "<cmd>exe v:count1 . 'ToggleTerm '<cr>", { noremap = true, silent = true })
-
-    vim.keymap.set("n", "<leader>tr", ":Send<cr>", { noremap = true, silent = true })
+    vim.keymap.set("n", "<leader>t", "<cmd>ToggleTerm<cr>", { noremap = true, silent = true })
+    vim.keymap.set("n", "<leader>p", function()
+        terminal.exec(ft_cmds[vim.bo.filetype])
+      end,
+      { noremap = true, silent = true }
+    )
   end,
-  keys = { "<leader>ot", "<leader>oo", "<leader>gl" },
+
+  keys = {
+    { "<leader>t", desc = "Toggle Terminal" },
+    { "<leader>p", desc = "Execute buffer" }
+  },
+
 }

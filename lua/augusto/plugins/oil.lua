@@ -2,6 +2,7 @@ return {
   {
     "stevearc/oil.nvim",
     keys = { { "-", ":Oil<cr>", desc = "Open parent directory" } },
+    event = "VeryLazy",
     init = function()
       require("oil").setup({
         view_options = {
@@ -11,9 +12,5 @@ return {
       })
     end,
     dependencies = { "nvim-tree/nvim-web-devicons" },
-    enabled = true,
   },
-  -- {
-  --   "vifm/vifm.vim",
-  -- }
 }

@@ -46,7 +46,27 @@ return {
       return not vim.g.vscode
     end,
   },
+  {
+    "echasnovski/mini.hipatterns",
+    version = false,
+    config = function()
+      require("mini.hipatterns").setup()
+      local hipatterns = require("mini.hipatterns")
+      hipatterns.setup({
+        highlighters = {
+          -- Highlight standalone 'FIXME', 'HACK', 'TODO', 'NOTE'
+          fixme = { pattern = "%f[%w]()FIXME()%f[%W]", group = "MiniHipatternsFixme" },
+          hack = { pattern = "%f[%w]()HACK()%f[%W]", group = "MiniHipatternsHack" },
+          todo = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" },
+          note = { pattern = "%f[%w]()NOTE()%f[%W]", group = "MiniHipatternsNote" },
 
+          -- Highlight hex color strings (`#rrggbb`) using that color
+          hex_color = hipatterns.gen_highlighter.hex_color(),
+        },
+      })
+    end,
+    event = "VeryLazy",
+  },
   {
     "folke/noice.nvim",
     event = "VeryLazy",
@@ -115,7 +135,7 @@ return {
         "rcarriga/nvim-notify",
         keys = {
           {
-            "<leader>un",
+            "<leader>nd",
             function()
               require("notify").dismiss({ silent = true, pending = true })
             end,
@@ -123,13 +143,19 @@ return {
           },
         },
         opts = {
-          timeout = 3000,
+          timeout = 2000,
           max_height = function()
             return math.floor(vim.o.lines * 0.75)
           end,
           max_width = function()
             return math.floor(vim.o.columns * 0.75)
           end,
+          background_colour = "NotifyBackground",
+          level = 2,
+          minimum_width = 50,
+          render = "simple",
+          stages = "fade",
+          top_down = true
         },
       },
       "MunifTanjim/nui.nvim",
@@ -155,4 +181,25 @@ return {
       return not vim.g.vscode
     end,
   },
+
+  {
+    "folke/which-key.nvim",
+    event = "VeryLazy",
+    cond = function()
+      return not vim.g.vscode
+    end,
+    config = function()
+      vim.o.timeout = true
+      vim.o.timeoutlen = 600
+      require("which-key").setup({
+        plugins = {
+          marks = true,      -- shows a list of your marks on ' and `
+          registers = true,  -- shows your registers on " in NORMAL or <C-r> in INSERT mode
+          spelling = {
+            enabled = false, -- enabling this will show WhichKey when pressing z= to select spelling suggestions
+          },
+        },
+      })
+    end,
+  }
 }

@@ -66,11 +66,46 @@ local function lsp_setup_basics()
     },
   })
 
+  local servers = {
+    lua_ls = {
+      Lua = {
+        diagnostics = {
+          globals = { 'vim' },
+        },
+        telemetry = {
+          enable = false,
+        },
+      },
+    },
+    pylsp = {
+      pylsp = {
+        plugins = {
+          ruff = {
+            enabled = true
+          },
+          black = {
+            enabled = true
+          },
+          pycodestyle = {
+            enabled = false
+          },
+          pyflakes = {
+            enabled = false
+          },
+          mccabe = {
+            enabled = false
+          },
+        }
+      }
+    },
+  }
+  --[[ Pylsp: If are global modules modify
+-- ~/.local/share/nvim/lsp_servers/pylsp/venv/pyvenv.cfg
+-- include-system-site-packages = true
+--]]
+
   require('mason-lspconfig').setup({
-    ensure_installed = {
-      'lua_ls',
-      'pylsp',
-    }
+    ensure_installed = vim.tbl_keys(servers) -- This function extracts all the keys from the servers table
   })
 
   local lspconfig = require('lspconfig')
@@ -80,6 +115,7 @@ local function lsp_setup_basics()
     function(server_name)
       lspconfig[server_name].setup({
         capabilities = lsp_capabilities,
+        settings = servers[server_name]
       })
     end,
   })
@@ -89,7 +125,12 @@ return {
   {
     "neovim/nvim-lspconfig",
     dependencies = {
-      { "williamboman/mason.nvim" },
+      {
+        "williamboman/mason.nvim",
+        opts = {
+          vim.keymap.set('n', '<leader>m', '<cmd>Mason<cr')
+        }
+      },
       { "williamboman/mason-lspconfig.nvim" },
       { "hrsh7th/cmp-nvim-lsp" },
     },
@@ -99,14 +140,6 @@ return {
     event = { "BufReadPre", "BufNewFile" },
   },
 
-  {
-    "folke/neodev.nvim",
-    opts = { experimental = { pathStrict = true } },
-    cond = function()
-      return not vim.g.vscode
-    end,
-    event = "VeryLazy"
-  },
 
   {
     "folke/trouble.nvim",
