@@ -9,11 +9,6 @@ return {
 
     require("telescope").setup({
       defaults = {
-        -- borderchars = {
-        --   prompt = { "─", " ", " ", " ", "─", "─", " ", " " },
-        --   results = { " " },
-        --   preview = { " " },
-        -- },
         prompt_prefix = " ",
         selection_caret = " ",
         dynamic_preview_title = true,
@@ -22,6 +17,7 @@ return {
         layout_config = {
           width = 0.90,
           height = 0.90,
+          preview_width = 0.5,
           prompt_position = "top",
         },
         mappings = {
@@ -31,7 +27,7 @@ return {
           },
           i = {
             ["<c-t>"] = trouble.open_with_trouble,
-            ["<C-d>"] = function(prompt_bufnr)
+            ["<C-x>"] = function(prompt_bufnr)
               local selection = require("telescope.actions.state").get_selected_entry()
               local dir = vim.fn.fnamemodify(selection.path, ":p:h")
               require("telescope.actions").close(prompt_bufnr)
@@ -48,7 +44,6 @@ return {
               type = "action",
               opts = { nowait = true, silent = true },
             },
-            ["<C-u>"] = false,
             ["<M-p>"] = action_layout.toggle_preview,
             ["<C-q>"] = function(bufnr)
               actions.smart_send_to_qflist(bufnr)
@@ -86,6 +81,13 @@ return {
             prompt_position = "top",
             preview_width = 0.8,
           },
+          mappings = {
+            i = {
+              ["<cr>"] = require("telescope-undo.actions").yank_additions,
+              ["<S-cr>"] = require("telescope-undo.actions").yank_deletions,
+              ["<C-cr>"] = require("telescope-undo.actions").restore,
+            },
+          },
         },
       },
     })
@@ -110,7 +112,7 @@ return {
     { "<leader>sc", "<cmd>Telescope command_history<cr>",               desc = "Command History" },
     { "<leader>sC", "<cmd>Telescope commands<cr>",                      desc = "Commands" },
     { "<leader>sd", "<cmd>Telescope lsp_definitions<cr>",               desc = "Definitions" },
-    { "<leader>sr", "<cmd>Telescope lsp_references<cr>",                desc = "References" },
+    -- { "<leader>sr", "<cmd>Telescope lsp_references<cr>",                desc = "References" },
     { "<leader>sh", "<cmd>Telescope help_tags<cr>",                     desc = "Help Pages" },
     { "<leader>sk", "<cmd>Telescope keymaps<cr>",                       desc = "Key Maps" },
     { "<leader>sm", "<cmd>Telescope marks<cr>",                         desc = "Jump to Mark" },

@@ -4,16 +4,17 @@ return {
   config = function()
     require("nvim-treesitter.configs").setup({
       ensure_installed = {
-        "regex",
-        "diff",
-        "python",
-        "lua",
         "bash",
+        "diff",
         "fish",
-        "vim",
-        "matlab",
+        "lua",
         "markdown",
         "markdown_inline",
+        "matlab",
+        "python",
+        "regex",
+        "vim",
+        "vimdoc",
       },
 
 
@@ -47,9 +48,6 @@ return {
         },
       },
       indent = { enable = true },
-      matchup = {
-        enable = true, -- mandatory, false will disable the whole extension
-      },
     })
   end,
   build = function()

@@ -42,7 +42,7 @@ return {
     local terminal = require("toggleterm")
     local ft_cmds = {
       python = "python3 " .. vim.fn.expand('%'),
-      matlab = "octave " .. vim.fn.expand('%'),
+      matlab = "octave --no-line-editing -q " .. vim.fn.expand('%'),
     }
 
     vim.keymap.set("n", "<leader>t", "<cmd>ToggleTerm<cr>", { noremap = true, silent = true })

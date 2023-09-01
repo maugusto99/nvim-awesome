@@ -128,7 +128,7 @@ return {
       {
         "williamboman/mason.nvim",
         opts = {
-          vim.keymap.set('n', '<leader>m', '<cmd>Mason<cr')
+          vim.keymap.set('n', '<leader>m', '<cmd>Mason<cr>')
         }
       },
       { "williamboman/mason-lspconfig.nvim" },
