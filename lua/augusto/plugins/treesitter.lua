@@ -17,7 +17,6 @@ return {
         "vimdoc",
       },
 
-
       ignore_install = { "fortran" },
       -- Install parsers synchronously (only applied to `ensure_installed`)
       sync_install = false,
@@ -35,7 +34,10 @@ return {
 
         enable = true,
         additional_vim_regex_highlighting = false,
-
+      },
+      matchup = {
+        enable = true,
+        enable_quotes = true,
       },
       context_commentstring = { enable = true, enable_autocmd = false },
       incremental_selection = {
@@ -54,7 +56,6 @@ return {
     pcall(require("nvim-treesitter.install").update({ with_sync = true }))
   end,
   dependencies = {
-    { "nvim-treesitter/nvim-treesitter-context", }
+    { "nvim-treesitter/nvim-treesitter-context" },
   },
-
 }

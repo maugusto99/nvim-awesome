@@ -56,11 +56,3 @@ vim.opt.fillchars = {
 -- Fix markdown indentation settings
 vim.g.markdown_recommended_style = 0
 
--- Netrw
--- vim.g.netrw_banner=0
--- vim.g.netrw_liststyle=0
--- vim.g.netrw_browse_split=4
--- vim.g.netrw_altv=1
--- vim.g.netrw_winsize=25
--- vim.g.netrw_keepdir=0
--- vim.g.netrw_localcopydircmd='cp -r'

@@ -10,14 +10,13 @@ return {
     require("telescope").setup({
       defaults = {
         prompt_prefix = " ",
-        selection_caret = " ",
+        selection_caret = " ",
         dynamic_preview_title = true,
         sorting_strategy = "ascending",
         layout_strategy = "horizontal",
         layout_config = {
           width = 0.90,
           height = 0.90,
-          preview_width = 0.5,
           prompt_position = "top",
         },
         mappings = {
@@ -73,13 +72,13 @@ return {
           fuzzy = false, -- false will only do exact matching
         },
         undo = {
-          side_by_side = false,
-          use_delta = false,
+          side_by_side = true,
+          use_delta = true,
           layout_config = {
             width = 0.90,
             height = 0.90,
             prompt_position = "top",
-            preview_width = 0.8,
+            preview_width = 0.9,
           },
           mappings = {
             i = {
@@ -91,9 +90,9 @@ return {
         },
       },
     })
-    require("telescope").load_extension("undo")
     require("telescope").load_extension("fzf")
     require("telescope").load_extension("notify")
+    require("telescope").load_extension("undo")
   end,
   --stylua: ignore
   keys = {
@@ -112,7 +111,7 @@ return {
     { "<leader>sc", "<cmd>Telescope command_history<cr>",               desc = "Command History" },
     { "<leader>sC", "<cmd>Telescope commands<cr>",                      desc = "Commands" },
     { "<leader>sd", "<cmd>Telescope lsp_definitions<cr>",               desc = "Definitions" },
-    -- { "<leader>sr", "<cmd>Telescope lsp_references<cr>",                desc = "References" },
+    { "<leader>sr", "<cmd>Telescope lsp_references<cr>",                desc = "References" },
     { "<leader>sh", "<cmd>Telescope help_tags<cr>",                     desc = "Help Pages" },
     { "<leader>sk", "<cmd>Telescope keymaps<cr>",                       desc = "Key Maps" },
     { "<leader>sm", "<cmd>Telescope marks<cr>",                         desc = "Jump to Mark" },

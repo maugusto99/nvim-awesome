@@ -68,13 +68,25 @@ vim.api.nvim_create_autocmd("FileType", {
 		"man",
 		"notify",
 		"lspinfo",
-		"spectre_panel",
 		"startuptime",
 		"tsplayground",
 		"PlenaryTestPopup",
+    "terminal"
 	},
 	callback = function(event)
 		vim.bo[event.buf].buflisted = false
 		vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
 	end,
 })
+local M = {}
+
+M.SendLinesToTerminal = function(...)
+  local toggle_term_number = 1
+  local from = select(1, ...)
+  local to = select(2, ...)
+  local lines = table.concat(vim.fn.getline(from, to), "\n")
+
+  require("toggleterm").exec(lines, toggle_term_number)
+end
+
+return M
