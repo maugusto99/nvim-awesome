@@ -33,7 +33,7 @@ autocmd({ "InsertLeave", "WinEnter" }, {
 		end
 	end,
 })
-
+--
 autocmd({ "InsertEnter", "WinLeave" }, {
 	callback = function()
 		local cl = vim.wo.cursorline
@@ -71,22 +71,24 @@ vim.api.nvim_create_autocmd("FileType", {
 		"startuptime",
 		"tsplayground",
 		"PlenaryTestPopup",
-    "terminal"
+		"terminal",
+		"query",
 	},
 	callback = function(event)
 		vim.bo[event.buf].buflisted = false
 		vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
 	end,
 })
+
 local M = {}
 
 M.SendLinesToTerminal = function(...)
-  local toggle_term_number = 1
-  local from = select(1, ...)
-  local to = select(2, ...)
-  local lines = table.concat(vim.fn.getline(from, to), "\n")
+	local toggle_term_number = 1
+	local from = select(1, ...)
+	local to = select(2, ...)
+	local lines = table.concat(vim.fn.getline(from, to), "\n")
 
-  require("toggleterm").exec(lines, toggle_term_number)
+	require("toggleterm").exec(lines, toggle_term_number)
 end
 
 return M

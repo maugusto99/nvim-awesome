@@ -63,8 +63,16 @@ return {
 	{
 		"michaelb/sniprun",
 		build = "sh ./install.sh",
-		config = function()
-			require("sniprun").setup({
+		opts = function()
+			vim.keymap.set("v", ",", "<Plug>SnipRun", { silent = true })
+			vim.keymap.set("n", "<leader>,", "<Plug>SnipRunOperator", { silent = true })
+			vim.keymap.set(
+				"n",
+				"<leader>,,",
+				":let b:caret=winsaveview() <CR> | :%SnipRun <CR>| :call winrestview(b:caret) <CR>",
+				{ silent = true }
+			)
+			return {
 				selected_interpreters = { "Python3_fifo" },
 				repl_enable = { "Python3_fifo" },
 				repl_disable = {}, --# disable REPL-like behavior for the given interpreters
@@ -86,13 +94,13 @@ return {
 				--# you can combo different display modes as desired and with the 'Ok' or 'Err' suffix
 				--# to filter only sucessful runs (or errored-out runs respectively)
 				display = {
-					"Classic", --# display results in the command-line  area
-					"VirtualTextOk", --# display ok results as virtual text (multiline is shortened)
+					-- "Classic", --# display results in the command-line  area
+					-- "VirtualTextOk", --# display ok results as virtual text (multiline is shortened)
 
 					-- "VirtualText",             --# display results as virtual text
 					-- "TempFloatingWindow",      --# display results in a floating window
 					-- "LongTempFloatingWindow",  --# same as above, but only long results. To use with VirtualText[Ok/Err]
-					-- "Terminal", --# display results in a vertical split
+					"Terminal", --# display results in a vertical split
 					-- "TerminalWithCode",        --# display results and code history in a vertical split
 					-- "NvimNotify",              --# display with the nvim-notify plugin
 					-- "Api"                      --# return output to a programming interface
@@ -126,21 +134,18 @@ return {
 
 				borders = "none", --# display borders around floating windows
 				--# possible values are 'none', 'single', 'double', or 'shadow'
-			})
-
-			vim.keymap.set("v", ",", "<Plug>SnipRun", { silent = true })
-			vim.keymap.set("n", "<leader>,", "<Plug>SnipRunOperator", { silent = true })
-			vim.keymap.set(
-				"n",
-				"<leader>,,",
-				":let b:caret=winsaveview() <CR> | :%SnipRun <CR>| :call winrestview(b:caret) <CR>",
-				{ silent = true }
-			)
+			}
 		end,
 		keys = {
-			{ mode = "v", ",", desc = "Run block" },
-			{ mode = "n", "<leader>,", desc = "Run Operator" },
-			{ mode = "n", "<leader>,,", desc = "Run file" },
+			{ mode = "v", ",", "<Plug>SnipRun", silent = true, desc = "Run block" },
+			{ mode = "n", "<leader>,", "<Plug>SnipRunOperator", silent = true, desc = "Run Operator" },
+			{
+				mode = "n",
+				"<leader>,,",
+				":let b:caret=winsaveview() <CR> | :%SnipRun <CR>| :call winrestview(b:caret) <CR>",
+				silent = true,
+				desc = "Run file",
+			},
 		},
 	},
 }

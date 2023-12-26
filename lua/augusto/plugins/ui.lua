@@ -1,8 +1,8 @@
 return {
   {
     "nvim-lualine/lualine.nvim",
-    config = function()
-      require("lualine").setup({
+    opts = function()
+      return {
         options = {
           icons_enabled = true,
           theme = "auto",
@@ -43,83 +43,10 @@ return {
           lualine_z = { "location" },
         },
         extensions = { "neo-tree", "toggleterm", "quickfix", "man", "lazy", "trouble" },
-      })
+      }
     end,
     dependencies = { "nvim-tree/nvim-web-devicons" },
     event = "VeryLazy",
-    cond = function()
-      return not vim.g.vscode
-    end,
-  },
-  {
-    "echasnovski/mini.hipatterns",
-    version = false,
-    config = function()
-      require("mini.hipatterns").setup()
-      local hipatterns = require("mini.hipatterns")
-      hipatterns.setup({
-        highlighters = {
-          -- Highlight hex color strings (`#rrggbb`) using that color
-          hex_color = hipatterns.gen_highlighter.hex_color(),
-        },
-      })
-    end,
-    event = "VeryLazy",
-    cond = function()
-      return not vim.g.vscode
-    end,
-  },
-  {
-    "folke/noice.nvim",
-    event = "VeryLazy",
-    cond = function()
-      return not vim.g.vscode
-    end,
-    opts = {
-      lsp = {
-        override = {
-          ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-          ["vim.lsp.util.stylize_markdown"] = true,
-        },
-      },
-      presets = {
-        bottom_search = true,
-        command_palette = true,
-        long_message_to_split = true,
-        lsp_doc_border = true, -- add a border to hover docs and signature help
-      },
-    },
-    dependencies = {
-      {
-        "rcarriga/nvim-notify",
-        keys = {
-          {
-            "<leader>nd",
-            function()
-              require("notify").dismiss({ silent = true, pending = true })
-            end,
-            desc = "Dismiss all Notifications",
-          },
-        },
-        opts = {
-          timeout = 2000,
-          max_height = function()
-            return math.floor(vim.o.lines * 0.75)
-          end,
-          max_width = function()
-            return math.floor(vim.o.columns * 0.75)
-          end,
-          background_colour = "NotifyBackground",
-          level = 2,
-          minimum_width = 50,
-          render = "simple",
-          stages = "fade",
-          top_down = true,
-        },
-      },
-      "MunifTanjim/nui.nvim",
-    },
-    enabled = true,
   },
 
   {
@@ -135,14 +62,10 @@ return {
         return vim.ui.input(...)
       end
     end,
-    cond = function()
-      return not vim.g.vscode
-    end,
   },
 
   {
     "folke/which-key.nvim",
-    -- event = "VeryLazy",
     cmd = "WhichKey",
     keys = { "<leader>", "<c-r>", '"', "'", "`", "c", "v", "g", "[", "]" },
     cond = function()
@@ -161,5 +84,68 @@ return {
         },
       })
     end,
+  },
+  {
+    "NvChad/nvim-colorizer.lua",
+    lazy = true,
+    opts = {
+      filetypes = { "*" },
+      user_default_options = {
+        RGB = true,          -- #RGB hex codes
+        RRGGBB = true,       -- #RRGGBB hex codes
+        names = true,        -- "Name" codes like Blue or blue
+        RRGGBBAA = false,    -- #RRGGBBAA hex codes
+        AARRGGBB = false,    -- 0xAARRGGBB hex codes
+        rgb_fn = false,      -- CSS rgb() and rgba() functions
+        hsl_fn = false,      -- CSS hsl() and hsla() functions
+        css = false,         -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
+        css_fn = false,      -- Enable all CSS *functions*: rgb_fn, hsl_fn
+        -- Available modes for `mode`: foreground, background,  virtualtext
+        mode = "background", -- Set the display mode.
+        virtualtext = "■",
+        always_update = false,
+      },
+    },
+    keys = {
+      { "<leader>cc", "<cmd>ColorizerToggle<cr>", desc = "Toggle RGB colors" },
+    },
+  },
+  {
+    "folke/noice.nvim",
+    event = "VeryLazy",
+    opts = {
+      lsp = {
+        override = {
+          ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+          ["vim.lsp.util.stylize_markdown"] = true,
+          ["cmp.entry.get_documentation"] = true,
+        },
+      },
+      presets = {
+        bottom_search = true,
+        command_palette = true,
+        long_message_to_split = true,
+        inc_rename = true,
+      },
+    },
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "rcarriga/nvim-notify",
+    },
+  },
+
+  {
+    "folke/trouble.nvim",
+    cond = function()
+      return not vim.g.vscode
+    end,
+    cmd = { "TroubleToggle", "Trouble" },
+    opts = { use_diagnostic_signs = true },
+    keys = {
+      { "<leader>xx", "<cmd>TroubleToggle document_diagnostics<cr>",  desc = "Document Diagnostics (Trouble)" },
+      { "<leader>xX", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Workspace Diagnostics (Trouble)" },
+      { "<leader>xq", "<cmd>TroubleToggle quickfix<cr>",              desc = "Quickfix list (Trouble)" },
+      { "<leader>xl", "<cmd>TroubleToggle loclist<cr>",               desc = "Loclist (Trouble)" },
+    },
   },
 }

@@ -27,7 +27,7 @@ require("lazy").setup({
 		},
 	},
 	install = {
-		colorscheme = { "tokyonight", "catppuccin" },
+		colorscheme = { "catppuccin" },
 	},
 	checker = { enabled = false }, -- automatically check for plugin updates
 	performance = {
@@ -46,8 +46,6 @@ require("lazy").setup({
 				"rplugin",
 				"tarPlugin",
 				"tohtml",
-				-- "matchit",
-				-- "matchparen",
 			},
 		},
 	},

@@ -1,58 +1,51 @@
-local opt = vim.opt
+local o = vim.opt
 
-opt.autowrite = true           -- Enable auto write
-opt.clipboard = "unnamedplus"  -- Sync with system clipboard
-opt.completeopt = "menu,menuone,noselect"
-opt.conceallevel = 3           -- Hide * markup for bold and italic
-opt.confirm = true             -- Confirm to save changes before exiting modified buffer
-opt.cursorline = true          -- Enable highlighting of the current line
-opt.expandtab = true           -- Use spaces instead of tabs
-opt.formatoptions = "jcroqlnt" -- tcqj
-opt.grepformat = "%f:%l:%c:%m"
-opt.grepprg = "rg --vimgrep"
-opt.ignorecase = true      -- Ignore case
-opt.inccommand = "nosplit" -- preview incremental substitute
-opt.laststatus = 0
-opt.list = false           -- Show some invisible characters (tabs...
-opt.mouse = "a"            -- Enable mouse mode
-opt.number = true          -- Print line number
-opt.pumblend = 5           -- Popup blend
-opt.pumheight = 10         -- Maximum number of entries in a popup
-opt.relativenumber = true  -- Relative line numbers
-opt.scrolloff = 4          -- Lines of context
-opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize" }
-opt.shiftround = true      -- Round indent
-opt.shiftwidth = 2         -- Size of an indent
-opt.shortmess:append({ W = true, I = true, c = true })
-opt.showmode = false       -- Dont show mode since we have a statusline
-opt.sidescrolloff = 8      -- Columns of context
-opt.signcolumn = "yes"     -- Always show the signcolumn, otherwise it would shift the text each time
-opt.smartcase = true       -- Don't ignore case with capitals
-opt.smartindent = true     -- Insert indents automatically
-opt.spelllang = { "en" }
-opt.splitbelow = true      -- Put new windows below current
-opt.splitright = true      -- Put new windows right of current
-opt.tabstop = 2            -- Number of spaces tabs count for
-opt.termguicolors = true   -- True color support
-opt.timeoutlen = 300
-opt.undofile = true
-opt.undolevels = 10000
-opt.updatetime = 200               -- Save swap file and trigger CursorHold
-opt.wildmode = "longest:full,full" -- Command-line completion mode
-opt.winminwidth = 5                -- Minimum window width
-opt.wrap = false                   -- Disable line wrap
-opt.showcmd = false                -- Disable show keDisable line wrapy
-opt.background = "dark"
-
-vim.opt.fillchars = {
-  foldopen = "",
-  foldclose = "",
-  fold = " ",
-  foldsep = " ",
-  diff = "╱",
-  eob = " ",
-}
-
+-- opt.mouse = "a" -- Enable mouse mode
+o.autowrite = true -- Enable auto write
+o.background = "dark"
+o.clipboard = "unnamedplus" -- Sync with system clipboard
+o.completeopt = "menu,menuone,noselect"
+o.conceallevel = 3 -- Hide * markup for bold and italic
+o.confirm = true -- Confirm to save changes before exiting modified buffer
+o.cursorline = true -- Enable highlighting of the current line
+o.expandtab = true -- Use spaces instead of tabs
+o.fillchars = { foldopen = "", foldclose = "", fold = " ", foldsep = " ", diff = "╱", eob = " " }
+o.foldenable = false
+o.foldexpr = "nvim_treesitter#foldexpr()"
+o.foldmethod = "expr"
+o.formatoptions = "jcroqlnt" -- tcqj
+o.grepformat = "%f:%l:%c:%m"
+o.grepprg = "rg --vimgrep"
+o.ignorecase = true -- Ignore case
+o.inccommand = "nosplit" -- preview incremental substitute
+o.laststatus = 0
+o.list = false -- Show some invisible characters (tabs...
+o.number = true -- Print line number
+o.pumblend = 5 -- Popup blend
+o.pumheight = 10 -- Maximum number of entries in a popup
+o.relativenumber = true -- Relative line numbers
+o.scrolloff = 4 -- Lines of context
+o.sessionoptions = { "buffers", "curdir", "tabpages", "winsize" }
+o.shiftround = true -- Round indent
+o.shiftwidth = 2 -- Size of an indent
+o.shortmess:append({ W = true, I = true, c = true })
+o.showcmd = false -- Disable show keDisable line wrapy
+o.showmode = false -- Dont show mode since we have a statusline
+o.sidescrolloff = 8 -- Columns of context
+o.signcolumn = "yes" -- Always show the signcolumn, otherwise it would shift the text each time
+o.smartcase = true -- Don't ignore case with capitals
+o.smartindent = true -- Insert indents automatically
+o.splitbelow = true -- Put new windows below current
+o.splitright = true -- Put new windows right of current
+o.tabstop = 2 -- Number of spaces tabs count for
+o.termguicolors = true -- True color support
+o.timeoutlen = 300
+o.undofile = true
+o.undolevels = 10000
+o.updatetime = 200 -- Save swap file and trigger CursorHold
+o.virtualedit = "block"
+o.wildmode = "longest:full,full" -- Command-line completion mode
+o.winminwidth = 5 -- Minimum window width
+o.wrap = false -- Disable line wrap
 -- Fix markdown indentation settings
 vim.g.markdown_recommended_style = 0
-

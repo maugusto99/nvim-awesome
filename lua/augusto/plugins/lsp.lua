@@ -36,19 +36,22 @@ local function lsp_setup_basics()
 			nmap("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
 			nmap("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
 
-			nmap("gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
-			nmap("gr", vim.lsp.buf.references, "[G]oto [R]eferences")
-			nmap("gI", vim.lsp.buf.implementation, "[G]oto [I]mplementation")
+			nmap("gd", function()
+				require("trouble").toggle("lsp_definitions")
+			end, "[G]oto [D]efinition")
+			nmap("gr", function()
+				require("trouble").toggle("lsp_references")
+			end, "[G]oto [R]eferences")
+			nmap("gI", function()
+				require("trouble").toggle("lsp_implementations")
+			end, "[G]oto [I]mplementation")
+
 			nmap("<leader>D", vim.lsp.buf.type_definition, "Type [D]efinition")
 			nmap("<leader>ds", vim.lsp.buf.document_symbol, "[D]ocument [S]ymbols")
 
 			-- See `:help K` for why this keymap
 			nmap("K", vim.lsp.buf.hover, "Hover Documentation")
 			nmap("<C-k>", vim.lsp.buf.signature_help, "Signature Documentation")
-
-			nmap("<leader>fo", function()
-				vim.lsp.buf.format({ async = true })
-			end, "Format Buffer")
 
 			-- Lesser used LSP functionality
 			nmap("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
@@ -59,7 +62,6 @@ local function lsp_setup_basics()
 			end, "[W]orkspace [L]ist Folders")
 		end,
 	})
-
 	require("mason").setup({
 		ui = {
 			border = "none",
@@ -142,30 +144,14 @@ return {
 			lsp_setup_basics()
 		end,
 		event = { "BufReadPre", "BufNewFile" },
-		cond = function()
-			return not vim.g.vscode
-		end,
 	},
 
-	{
-		"folke/trouble.nvim",
-		cond = function()
-			return not vim.g.vscode
-		end,
-		cmd = { "TroubleToggle", "Trouble" },
-		opts = { use_diagnostic_signs = true },
-		keys = {
-			{ "<leader>xx", "<cmd>TroubleToggle document_diagnostics<cr>", desc = "Document Diagnostics (Trouble)" },
-			{ "<leader>xX", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Workspace Diagnostics (Trouble)" },
-			{ "<leader>xq", "<cmd>TroubleToggle quickfix<cr>", desc = "Quickfix list (Trouble)" },
-			{ "<leader>xl", "<cmd>TroubleToggle loclist<cr>", desc = "Loclist (Trouble)" },
-		},
-	},
 	{
 		"mfussenegger/nvim-lint",
 		config = function()
 			require("lint").linters_by_ft = {
 				sh = { "shellcheck" },
+				fish = { "fish" },
 			}
 			vim.api.nvim_create_autocmd({ "BufWritePost", "InsertLeave", "TextChanged" }, {
 				callback = function()
@@ -173,14 +159,9 @@ return {
 				end,
 			})
 		end,
-		cond = function()
-			return not vim.g.vscode
-		end,
 	},
 	{
 		"stevearc/conform.nvim",
-		event = { "BufWritePre" },
-		cmd = { "ConformInfo" },
 		keys = {
 			{
 				"<leader>fo",
@@ -192,7 +173,6 @@ return {
 		opts = {
 			formatters_by_ft = {
 				lua = { "stylua" },
-				python = { "black" },
 				sh = { "shfmt" },
 			},
 		},
@@ -201,9 +181,6 @@ return {
 		end,
 		config = function(_, opts)
 			require("conform").setup(opts)
-		end,
-		cond = function()
-			return not vim.g.vscode
 		end,
 	},
 }

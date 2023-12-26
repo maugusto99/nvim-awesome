@@ -1,9 +1,7 @@
 return {
 	{
 		"L3MON4D3/LuaSnip",
-		cond = function()
-			return not vim.g.vscode
-		end,
+    version = false,
 		dependencies = {
 			"rafamadriz/friendly-snippets",
 			config = function()
@@ -32,9 +30,6 @@ return {
 
 	{
 		"hrsh7th/nvim-cmp",
-		cond = function()
-			return not vim.g.vscode
-		end,
 		version = false,
 		event = "InsertEnter",
 		dependencies = {
@@ -127,13 +122,6 @@ return {
 					format = function(entry, item)
 						-- Kind icons
 						item.kind = string.format("%s %s", kind_icons[item.kind], item.kind) -- This concatonates the icons with the name of the item kind
-						-- Source
-						item.menu = ({
-							buffer = "[Buffer]",
-							nvim_lsp = "[LSP]",
-							luasnip = "[LuaSnip]",
-							nvim_lua = "[Lua]",
-						})[entry.source.name]
 
 						fixed_width = fixed_width or false
 						local content = item.abbr

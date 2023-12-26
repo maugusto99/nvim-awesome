@@ -2,12 +2,13 @@ return {
   "nvim-telescope/telescope.nvim",
   cmd = "Telescope",
   version = false,
-  config = function()
+  opts = function()
     local actions = require("telescope.actions")
     local action_layout = require("telescope.actions.layout")
     local trouble = require("trouble.providers.telescope")
-
-    require("telescope").setup({
+    require("telescope").load_extension("fzf")
+    require("telescope").load_extension("notify")
+    return {
       defaults = {
         prompt_prefix = " ",
         selection_caret = " ",
@@ -71,28 +72,8 @@ return {
         fzf = {
           fuzzy = false, -- false will only do exact matching
         },
-        undo = {
-          side_by_side = true,
-          use_delta = true,
-          layout_config = {
-            width = 0.90,
-            height = 0.90,
-            prompt_position = "top",
-            preview_width = 0.9,
-          },
-          mappings = {
-            i = {
-              ["<cr>"] = require("telescope-undo.actions").yank_additions,
-              ["<S-cr>"] = require("telescope-undo.actions").yank_deletions,
-              ["<C-cr>"] = require("telescope-undo.actions").restore,
-            },
-          },
-        },
       },
-    })
-    require("telescope").load_extension("fzf")
-    require("telescope").load_extension("notify")
-    require("telescope").load_extension("undo")
+    }
   end,
   --stylua: ignore
   keys = {
@@ -119,7 +100,7 @@ return {
     { "<leader>Ds", "<cmd>Telescope lsp_document_symbols<cr>",          desc = "[D]ocument [S]ymbols" },
     { "<leader>ws", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "[W]orkspace [S]ymbols" },
     -- undo
-    { "<leader>u",  "<cmd>Telescope undo<cr>",                          desc = "Undo" },
+    -- { "<leader>u",  "<cmd>Telescope undo<cr>",                          desc = "Undo" },
     -- Notifications
     { "<leader>nn", "<cmd>Telescope notify<cr>",                        desc = "Notifications" },
   },
@@ -129,9 +110,5 @@ return {
       build = "make",
       cond = vim.fn.executable("make") == 1,
     },
-    { "debugloop/telescope-undo.nvim" },
   },
-  cond = function()
-    return not vim.g.vscode
-  end,
 }
