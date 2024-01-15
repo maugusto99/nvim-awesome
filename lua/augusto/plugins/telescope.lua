@@ -1,80 +1,80 @@
 return {
-  "nvim-telescope/telescope.nvim",
-  cmd = "Telescope",
-  version = false,
-  opts = function()
-    local actions = require("telescope.actions")
-    local action_layout = require("telescope.actions.layout")
-    local trouble = require("trouble.providers.telescope")
-    require("telescope").load_extension("fzf")
-    require("telescope").load_extension("notify")
-    return {
-      defaults = {
-        prompt_prefix = " ",
-        selection_caret = " ",
-        dynamic_preview_title = true,
-        sorting_strategy = "ascending",
-        layout_strategy = "horizontal",
-        layout_config = {
-          width = 0.90,
-          height = 0.90,
-          prompt_position = "top",
-        },
-        mappings = {
-          n = {
-            ["<M-p>"] = action_layout.toggle_preview,
-            ["<c-t>"] = trouble.open_with_trouble,
-          },
-          i = {
-            ["<c-t>"] = trouble.open_with_trouble,
-            ["<C-x>"] = function(prompt_bufnr)
-              local selection = require("telescope.actions.state").get_selected_entry()
-              local dir = vim.fn.fnamemodify(selection.path, ":p:h")
-              require("telescope.actions").close(prompt_bufnr)
-              -- Depending on what you want put `cd`, `lcd`, `tcd`
-              vim.cmd(string.format("silent lcd %s", dir))
-            end,
-            ["<C-j>"] = {
-              actions.move_selection_next,
-              type = "action",
-              opts = { nowait = true, silent = true },
-            },
-            ["<C-k>"] = {
-              actions.move_selection_previous,
-              type = "action",
-              opts = { nowait = true, silent = true },
-            },
-            ["<M-p>"] = action_layout.toggle_preview,
-            ["<C-q>"] = function(bufnr)
-              actions.smart_send_to_qflist(bufnr)
-              require("telescope.builtin").quickfix()
-            end,
-          },
-        },
-      },
-      pickers = {
-        find_files = {
-          find_command = { "fd", "--type", "f", "--no-ignore-vcs", "--strip-cwd-prefix", "--color=never" },
-          previewer = false,
-        },
-        current_buffer_fuzzy_find = {
-          previewer = false,
-        },
-        buffers = {
-          mappings = {
-            i = {
-              ["<C-d>"] = actions.delete_buffer,
-            },
-          },
-        },
-      },
-      extensions = {
-        fzf = {
-          fuzzy = false, -- false will only do exact matching
-        },
-      },
-    }
-  end,
+	"nvim-telescope/telescope.nvim",
+	cmd = "Telescope",
+	version = false,
+	opts = function()
+		local actions = require("telescope.actions")
+		local action_layout = require("telescope.actions.layout")
+		local trouble = require("trouble.providers.telescope")
+		require("telescope").load_extension("fzf")
+		require("telescope").load_extension("notify")
+		return {
+			defaults = {
+				prompt_prefix = " ",
+				selection_caret = " ",
+				dynamic_preview_title = true,
+				sorting_strategy = "ascending",
+				layout_strategy = "horizontal",
+				layout_config = {
+					width = 0.90,
+					height = 0.90,
+					prompt_position = "top",
+				},
+				mappings = {
+					n = {
+						["<M-p>"] = action_layout.toggle_preview,
+						["<c-t>"] = trouble.open_with_trouble,
+					},
+					i = {
+						["<c-t>"] = trouble.open_with_trouble,
+						["<C-x>"] = function(prompt_bufnr)
+							local selection = require("telescope.actions.state").get_selected_entry()
+							local dir = vim.fn.fnamemodify(selection.path, ":p:h")
+							require("telescope.actions").close(prompt_bufnr)
+							-- Depending on what you want put `cd`, `lcd`, `tcd`
+							vim.cmd(string.format("silent lcd %s", dir))
+						end,
+						["<C-j>"] = {
+							actions.move_selection_next,
+							type = "action",
+							opts = { nowait = true, silent = true },
+						},
+						["<C-k>"] = {
+							actions.move_selection_previous,
+							type = "action",
+							opts = { nowait = true, silent = true },
+						},
+						["<M-p>"] = action_layout.toggle_preview,
+						["<C-q>"] = function(bufnr)
+							actions.smart_send_to_qflist(bufnr)
+							require("telescope.builtin").quickfix()
+						end,
+					},
+				},
+			},
+			pickers = {
+				find_files = {
+					find_command = { "fd", "--type", "f", "--no-ignore-vcs", "--strip-cwd-prefix", "--color=never" },
+					previewer = false,
+				},
+				current_buffer_fuzzy_find = {
+					previewer = false,
+				},
+				buffers = {
+					mappings = {
+						i = {
+							["<C-d>"] = actions.delete_buffer,
+						},
+					},
+				},
+			},
+			extensions = {
+				fzf = {
+					fuzzy = false, -- false will only do exact matching
+				},
+			},
+		}
+	end,
   --stylua: ignore
   keys = {
     { "<leader>:",  "<cmd>Telescope command_history<cr>",               desc = "Command History" },
@@ -88,7 +88,7 @@ return {
     { "<leader>gc", "<cmd>Telescope git_commits<CR>",                   desc = "commits" },
     { "<leader>gs", "<cmd>Telescope git_status<CR>",                    desc = "status" },
     -- search
-    { "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>",     desc = "Buffer" },
+    { "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find fuzzy=false<cr>",     desc = "Buffer" },
     { "<leader>sc", "<cmd>Telescope command_history<cr>",               desc = "Command History" },
     { "<leader>sC", "<cmd>Telescope commands<cr>",                      desc = "Commands" },
     { "<leader>sd", "<cmd>Telescope lsp_definitions<cr>",               desc = "Definitions" },
@@ -99,16 +99,14 @@ return {
     { "<leader>so", "<cmd>Telescope vim_options<cr>",                   desc = "Options" },
     { "<leader>Ds", "<cmd>Telescope lsp_document_symbols<cr>",          desc = "[D]ocument [S]ymbols" },
     { "<leader>ws", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "[W]orkspace [S]ymbols" },
-    -- undo
-    -- { "<leader>u",  "<cmd>Telescope undo<cr>",                          desc = "Undo" },
     -- Notifications
     { "<leader>nn", "<cmd>Telescope notify<cr>",                        desc = "Notifications" },
   },
-  dependencies = {
-    {
-      "nvim-telescope/telescope-fzf-native.nvim",
-      build = "make",
-      cond = vim.fn.executable("make") == 1,
-    },
-  },
+	dependencies = {
+		{
+			"nvim-telescope/telescope-fzf-native.nvim",
+			build = "make",
+			cond = vim.fn.executable("make") == 1,
+		},
+	},
 }
