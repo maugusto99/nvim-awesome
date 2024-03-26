@@ -80,15 +80,3 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
-local M = {}
-
-M.SendLinesToTerminal = function(...)
-	local toggle_term_number = 1
-	local from = select(1, ...)
-	local to = select(2, ...)
-	local lines = table.concat(vim.fn.getline(from, to), "\n")
-
-	require("toggleterm").exec(lines, toggle_term_number)
-end
-
-return M

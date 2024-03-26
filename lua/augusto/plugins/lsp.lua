@@ -87,18 +87,17 @@ local function lsp_setup_basics()
 		pylsp = {
 			pylsp = {
 				plugins = {
+					ruff = { enabled = true, maxLineLength = 100 },
+					yapf = { enabled = false },
 					pyflakes = {
-						enabled = true,
+						enabled = false,
 						maxLineLength = 100,
 					},
 					mccabe = { enabled = false },
 					flake8 = {
 						enabled = false,
-						maxLineLength = 100,
 					},
 					pycodestyle = {
-						ignore = { "W391" },
-						maxLineLength = 100,
 						enabled = false,
 					},
 				},
@@ -153,7 +152,7 @@ return {
 				sh = { "shellcheck" },
 				fish = { "fish" },
 			}
-			vim.api.nvim_create_autocmd({ "BufWritePost", "InsertLeave", "TextChanged" }, {
+			vim.api.nvim_create_autocmd({ "InsertLeave", "BufWritePost", "TextChanged" }, {
 				callback = function()
 					require("lint").try_lint()
 				end,

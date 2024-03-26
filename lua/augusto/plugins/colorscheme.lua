@@ -45,7 +45,7 @@ return {
 				neotree = true,
 				telescope = {
 					enabled = true,
-					style = "nvchad",
+					-- style = "nvchad",
 				},
 				mason = true,
 				native_lsp = {

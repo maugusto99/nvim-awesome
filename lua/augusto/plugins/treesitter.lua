@@ -12,10 +12,10 @@ return {
 				"markdown_inline",
 				"matlab",
 				"python",
+				"query",
 				"regex",
 				"vim",
 				"vimdoc",
-				"query",
 			},
 
 			ignore_install = { "fortran" },
