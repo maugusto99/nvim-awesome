@@ -1,16 +1,24 @@
 return {
 	{
-		"numToStr/Comment.nvim",
-		version = false, -- Use for stability; omit to use `main` branch for the latest features
+		"echasnovski/mini.bracketed",
+		version = false,
+		enabled = false,
+		event = "VeryLazy",
 		opts = {},
-		keys = {
-			{ mode = { "n", "v" }, "gc", desc = "Comment Operator" },
-		},
 	},
 
 	{
-		"kylechui/nvim-surround",
-		version = false, -- Use for stability; omit to use `main` branch for the latest features
+		"echasnovski/mini.surround",
+		version = false,
+		event = "VeryLazy",
+		opts = function()
+			vim.keymap.set("x", "S", [[:<C-u>lua MiniSurround.add('visual')<CR>]], { silent = true })
+		end,
+	},
+
+	{
+		"echasnovski/mini.comment",
+		version = false,
 		event = "VeryLazy",
 		opts = {},
 	},

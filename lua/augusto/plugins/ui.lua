@@ -70,51 +70,44 @@ return {
 	},
 
 	{
-		"folke/which-key.nvim",
-		cmd = "WhichKey",
-		keys = { "<leader>", "<c-r>", '"', "'", "`", "c", "v", "g", "[", "]" },
-		cond = function()
-			return not vim.g.vscode
-		end,
-		config = function()
-			vim.o.timeout = true
-			vim.o.timeoutlen = 600
-			require("which-key").setup({
-				plugins = {
-					marks = true, -- shows a list of your marks on ' and `
-					registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
-					spelling = {
-						enabled = false, -- enabling this will show WhichKey when pressing z= to select spelling suggestions
-					},
+		"echasnovski/mini.hipatterns",
+		version = false,
+		event = "VeryLazy",
+		opts = function()
+			local hipatterns = require("mini.hipatterns")
+			return {
+				highlighters = {
+					-- Highlight standalone 'FIXME', 'HACK', 'TODO', 'NOTE'
+					fixme = { pattern = "%f[%w]()FIXME()%f[%W]", group = "MiniHipatternsFixme" },
+					hack = { pattern = "%f[%w]()HACK()%f[%W]", group = "MiniHipatternsHack" },
+					todo = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" },
+					note = { pattern = "%f[%w]()NOTE()%f[%W]", group = "MiniHipatternsNote" },
+
+					-- Highlight hex color strings (`#rrggbb`) using that color
+					hex_color = hipatterns.gen_highlighter.hex_color(),
 				},
-			})
+			}
 		end,
 	},
+
 	{
-		"NvChad/nvim-colorizer.lua",
-		lazy = true,
+		"folke/which-key.nvim",
+		event = "VeryLazy",
+		init = function()
+			vim.o.timeout = true
+			vim.o.timeoutlen = 300
+		end,
 		opts = {
-			filetypes = { "*" },
-			user_default_options = {
-				RGB = true, -- #RGB hex codes
-				RRGGBB = true, -- #RRGGBB hex codes
-				names = false, -- "Name" codes like Blue or blue
-				RRGGBBAA = false, -- #RRGGBBAA hex codes
-				AARRGGBB = false, -- 0xAARRGGBB hex codes
-				rgb_fn = false, -- CSS rgb() and rgba() functions
-				hsl_fn = false, -- CSS hsl() and hsla() functions
-				css = false, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
-				css_fn = false, -- Enable all CSS *functions*: rgb_fn, hsl_fn
-				-- Available modes for `mode`: foreground, background,  virtualtext
-				mode = "background", -- Set the display mode.
-				virtualtext = "■",
-				always_update = false,
+			plugins = {
+				marks = true, -- shows a list of your marks on ' and `
+				registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
+				spelling = {
+					enabled = false, -- enabling this will show WhichKey when pressing z= to select spelling suggestions
+				},
 			},
 		},
-		keys = {
-			{ "<leader>cc", "<cmd>ColorizerToggle<cr>", desc = "Toggle RGB colors" },
-		},
 	},
+
 	{
 		"folke/noice.nvim",
 		event = "VeryLazy",
@@ -126,6 +119,13 @@ return {
 					["cmp.entry.get_documentation"] = true,
 				},
 			},
+			notify = {
+				enabled = true,
+				view = "mini",
+			},
+			views = {
+				mini = {},
+			},
 			presets = {
 				bottom_search = true,
 				command_palette = true,
@@ -135,7 +135,6 @@ return {
 		},
 		dependencies = {
 			"MunifTanjim/nui.nvim",
-			"rcarriga/nvim-notify",
 		},
 	},
 

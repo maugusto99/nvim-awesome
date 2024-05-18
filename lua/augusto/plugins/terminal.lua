@@ -3,29 +3,9 @@ return {
 		"michaelb/sniprun",
 		build = "sh ./install.sh",
 		opts = function()
-			vim.keymap.set("v", ",", "<Plug>SnipRun", { silent = true })
-			vim.keymap.set("n", "<leader>,", "<Plug>SnipRunOperator", { silent = true })
-			vim.keymap.set(
-				"n",
-				"<leader>,,",
-				":let b:caret=winsaveview() <CR> | :%SnipRun <CR>| :call winrestview(b:caret) <CR>",
-				{ silent = true }
-			)
 			return {
 				selected_interpreters = { "Python3_fifo" },
 				repl_enable = { "Python3_fifo" },
-				repl_disable = {}, --# disable REPL-like behavior for the given interpreters
-
-				interpreter_options = { --# interpreter-specific options, see doc / :SnipInfo <name>
-					GFM_original = {
-						use_on_filetypes = { "markdown.pandoc" }, --# the 'use_on_filetypes' configuration key is
-					},
-					Python3_original = {
-						error_truncate = "long", --# Truncate runtime errors 'long', 'short' or 'auto'
-						--# the hint is available for every interpreter
-						--# but may not be always respected
-					},
-				},
 
 				--# you can combo different display modes as desired and with the 'Ok' or 'Err' suffix
 				--# to filter only sucessful runs (or errored-out runs respectively)
@@ -35,13 +15,11 @@ return {
 					-- "VirtualText",             --# display results as virtual text
 					-- "TempFloatingWindow",      --# display results in a floating window
 					-- "LongTempFloatingWindow",  --# same as above, but only long results. To use with VirtualText[Ok/Err]
-					-- "Terminal", --# display results in a vertical split
-					"TerminalWithCode", --# display results and code history in a vertical split
+					"Terminal", --# display results in a vertical split
+					-- "TerminalWithCode", --# display results and code history in a vertical split
 					-- "NvimNotify",              --# display with the nvim-notify plugin
 					-- "Api"                      --# return output to a programming interface
 				},
-
-				live_display = { "VirtualTextOk" }, --# display mode used in live_mode
 
 				display_options = {
 					terminal_scrollback = vim.o.scrollback, --# change terminal display scrollback lines
@@ -54,22 +32,7 @@ return {
 					terminal_position = "horizontal",
 				},
 
-				--# You can use the same keys to customize whether a sniprun producing
-				--# no output should display nothing or '(no output)'
-				show_no_output = {
-					"Classic",
-					"TempFloatingWindow", --# implies LongTempFloatingWindow, which has no effect on its own
-				},
-
-				--# customize highlight groups (setting this overrides colorscheme)
-
-				live_mode_toggle = "off", --# live mode toggle, see Usage - Running for more info
-
-				--# miscellaneous compatibility/adjustement settings
-				inline_messages = false, --# boolean toggle for a one-line way to display messages
-				--# to workaround sniprun not being able to display anything
-
-				borders = "double", --# display borders around floating windows
+				borders = "shadow", --# display borders around floating windows
 				--# possible values are 'none', 'single', 'double', or 'shadow'
 			}
 		end,
@@ -84,5 +47,27 @@ return {
 				desc = "Run file",
 			},
 		},
+	},
+	{
+		"mrjones2014/smart-splits.nvim",
+		build = "./kitty/install-kittens.bash",
+		opts = function()
+			vim.keymap.set("n", "<A-h>", require("smart-splits").resize_left)
+			vim.keymap.set("n", "<A-j>", require("smart-splits").resize_down)
+			vim.keymap.set("n", "<A-k>", require("smart-splits").resize_up)
+			vim.keymap.set("n", "<A-l>", require("smart-splits").resize_right)
+			-- moving between splits
+			vim.keymap.set("n", "<CA-h>", require("smart-splits").move_cursor_left)
+			vim.keymap.set("n", "<CA-j>", require("smart-splits").move_cursor_down)
+			vim.keymap.set("n", "<CA-k>", require("smart-splits").move_cursor_up)
+			vim.keymap.set("n", "<CA-l>", require("smart-splits").move_cursor_right)
+			vim.keymap.set("n", "<CA-\\>", require("smart-splits").move_cursor_previous)
+
+			-- swapping buffers between windows
+			vim.keymap.set("n", "<leader><leader>h", require("smart-splits").swap_buf_left)
+			vim.keymap.set("n", "<leader><leader>j", require("smart-splits").swap_buf_down)
+			vim.keymap.set("n", "<leader><leader>k", require("smart-splits").swap_buf_up)
+			vim.keymap.set("n", "<leader><leader>l", require("smart-splits").swap_buf_right)
+		end,
 	},
 }

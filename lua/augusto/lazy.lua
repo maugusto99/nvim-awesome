@@ -20,10 +20,10 @@ require("lazy").setup({
 		border = "none",
 
 		icons = {
-			ft = "",
+			ft = " ",
 			lazy = "󰂠 ",
-			loaded = "",
-			not_loaded = "",
+			loaded = "󰗠 ",
+			not_loaded = " ",
 		},
 	},
 	install = {

@@ -24,16 +24,6 @@ return {
 			styles = { -- Handles the styles of general hi groups (see `:h highlight-args`):
 				comments = { "italic" }, -- Change the style of comments
 				conditionals = { "italic" },
-				loops = {},
-				functions = {},
-				keywords = {},
-				strings = {},
-				variables = {},
-				numbers = {},
-				booleans = {},
-				properties = {},
-				types = {},
-				operators = {},
 			},
 			integrations = {
 				cmp = true,
@@ -45,7 +35,6 @@ return {
 				neotree = true,
 				telescope = {
 					enabled = true,
-					-- style = "nvchad",
 				},
 				mason = true,
 				native_lsp = {

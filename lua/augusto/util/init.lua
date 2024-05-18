@@ -17,7 +17,8 @@ function M.colorize()
 
 	vim.api.nvim_chan_send(vim.api.nvim_open_term(buf, {}), table.concat(lines, "\r\n"))
 	vim.keymap.set("n", "q", "<cmd>qa!<cr>", { silent = true, buffer = buf })
-	vim.api.nvim_create_autocmd("TextChanged", { buffer = buf, command = "normal! G$" })
+	vim.api.nvim_create_autocmd("TextChanged", { buffer = buf, command = "normal! G0" })
 	vim.api.nvim_create_autocmd("TermEnter", { buffer = buf, command = "stopinsert" })
+  vim.opt.modifiable = true
 end
 return M

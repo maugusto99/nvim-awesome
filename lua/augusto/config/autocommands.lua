@@ -1,24 +1,30 @@
-local augroup = vim.api.nvim_create_augroup
-local AugustoGroup = augroup("augusto", {})
+local function augroup(name)
+	return vim.api.nvim_create_augroup(name, { clear = true })
+end
 
 local autocmd = vim.api.nvim_create_autocmd
-local yank_group = augroup("HighlightYank", {})
 
--- HighlightYank
-autocmd("TextYankPost", {
-	group = yank_group,
-	pattern = "*",
+-- Check if we need to reload the file when it changed
+vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
+  group = augroup("checktime"),
+  callback = function()
+    if vim.o.buftype ~= "nofile" then
+      vim.cmd("checktime")
+    end
+  end,
+})
+
+-- Highlight on yank
+vim.api.nvim_create_autocmd("TextYankPost", {
+	group = augroup("highlight_yank"),
 	callback = function()
-		vim.highlight.on_yank({
-			higroup = "IncSearch",
-			timeout = 20,
-		})
+		vim.highlight.on_yank({timeout = 50})
 	end,
 })
 
 -- Delete spaces in the final line
 autocmd({ "BufWritePre" }, {
-	group = AugustoGroup,
+	group = augroup("delete_spaces"),
 	pattern = "*",
 	command = "%s/\\s\\+$//e",
 })
@@ -33,7 +39,7 @@ autocmd({ "InsertLeave", "WinEnter" }, {
 		end
 	end,
 })
---
+
 autocmd({ "InsertEnter", "WinLeave" }, {
 	callback = function()
 		local cl = vim.wo.cursorline
@@ -56,8 +62,11 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 
 -- resize splits if window got resized
 vim.api.nvim_create_autocmd({ "VimResized" }, {
+	group = augroup("resize_splits"),
 	callback = function()
+		local current_tab = vim.fn.tabpagenr()
 		vim.cmd("tabdo wincmd =")
+		vim.cmd("tabnext " .. current_tab)
 	end,
 })
 
@@ -74,9 +83,9 @@ vim.api.nvim_create_autocmd("FileType", {
 		"terminal",
 		"query",
 	},
+	group = augroup("exit_with_q"),
 	callback = function(event)
 		vim.bo[event.buf].buflisted = false
 		vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
 	end,
 })
-

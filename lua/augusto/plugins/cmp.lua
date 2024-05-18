@@ -1,7 +1,7 @@
 return {
 	{
 		"L3MON4D3/LuaSnip",
-    version = false,
+		version = false,
 		dependencies = {
 			"rafamadriz/friendly-snippets",
 			config = function()
@@ -40,6 +40,7 @@ return {
 			{ "hrsh7th/cmp-nvim-lua" },
 		},
 		opts = function()
+			vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
 			local kind_icons = {
 				Text = "",
 				Method = "󰆧",
@@ -68,8 +69,7 @@ return {
 				TypeParameter = "󰅲",
 			}
 			local cmp = require("cmp")
-			local luasnip = require("luasnip")
-			cmp.setup({
+			return {
 				snippet = {
 					expand = function(args)
 						require("luasnip").lsp_expand(args.body) -- For `luasnip` users.
@@ -78,9 +78,10 @@ return {
 				completion = {
 					completeopt = "menu,menuone,noinsert",
 				},
-				window = {
-					completion = cmp.config.window.bordered(),
-					documentation = cmp.config.window.bordered(),
+				experimental = {
+					ghost_text = {
+						hl_group = "CmpGhostText",
+					},
 				},
 				mapping = cmp.mapping.preset.insert({
 					["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
@@ -90,24 +91,6 @@ return {
 					["<C-Space>"] = cmp.mapping.complete(),
 					["<C-e>"] = cmp.mapping.abort(),
 					["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-					["<Tab>"] = cmp.mapping(function(fallback)
-						if cmp.visible() then
-							cmp.select_next_item()
-						elseif luasnip.expand_or_locally_jumpable() then
-							luasnip.expand_or_jump()
-						else
-							fallback()
-						end
-					end, { "i", "s" }),
-					["<S-Tab>"] = cmp.mapping(function(fallback)
-						if cmp.visible() then
-							cmp.select_prev_item()
-						elseif luasnip.locally_jumpable(-1) then
-							luasnip.jump(-1)
-						else
-							fallback()
-						end
-					end, { "i", "s" }),
 				}),
 				sources = cmp.config.sources({
 					{ name = "nvim_lsp" },
@@ -138,7 +121,7 @@ return {
 						return item
 					end,
 				},
-			})
+			}
 		end,
 	},
 }

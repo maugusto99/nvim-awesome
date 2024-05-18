@@ -10,8 +10,9 @@ o.confirm = true -- Confirm to save changes before exiting modified buffer
 o.cursorline = true -- Enable highlighting of the current line
 o.expandtab = true -- Use spaces instead of tabs
 o.fillchars = { foldopen = "", foldclose = "", fold = " ", foldsep = " ", diff = "╱", eob = " " }
-o.foldenable = false
+o.foldenable = true
 o.foldexpr = "nvim_treesitter#foldexpr()"
+o.foldlevel = 99
 o.foldmethod = "expr"
 o.formatoptions = "jcroqlnt" -- tcqj
 o.grepformat = "%f:%l:%c:%m"
@@ -47,5 +48,10 @@ o.virtualedit = "block"
 o.wildmode = "longest:full,full" -- Command-line completion mode
 o.winminwidth = 5 -- Minimum window width
 o.wrap = false -- Disable line wrap
+
 -- Fix markdown indentation settings
-vim.g.markdown_recommended_style = 0
+-- vim.g.markdown_recommended_style = 0
+vim.fn.sign_define("DiagnosticSignError", { text = " ", texthl = "DiagnosticSignError" })
+vim.fn.sign_define("DiagnosticSignWarn", { text = " ", texthl = "DiagnosticSignWarn" })
+vim.fn.sign_define("DiagnosticSignInfo", { text = " ", texthl = "DiagnosticSignInfo" })
+vim.fn.sign_define("DiagnosticSignHint", { text = " ", texthl = "DiagnosticSignHint" })

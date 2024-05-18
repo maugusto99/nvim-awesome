@@ -7,12 +7,11 @@ return {
 		local action_layout = require("telescope.actions.layout")
 		local trouble = require("trouble.providers.telescope")
 		require("telescope").load_extension("fzf")
-		require("telescope").load_extension("notify")
 		return {
 			defaults = {
 				prompt_prefix = " ",
 				selection_caret = " ",
-				dynamic_preview_title = true,
+				theme = "ivy",
 				sorting_strategy = "ascending",
 				layout_strategy = "horizontal",
 				layout_config = {
@@ -56,6 +55,7 @@ return {
 				find_files = {
 					find_command = { "fd", "--type", "f", "--no-ignore-vcs", "--strip-cwd-prefix", "--color=never" },
 					previewer = false,
+					-- theme = "ivy",
 				},
 				current_buffer_fuzzy_find = {
 					previewer = false,
@@ -99,8 +99,6 @@ return {
     { "<leader>so", "<cmd>Telescope vim_options<cr>",                   desc = "Options" },
     { "<leader>Ds", "<cmd>Telescope lsp_document_symbols<cr>",          desc = "[D]ocument [S]ymbols" },
     { "<leader>ws", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "[W]orkspace [S]ymbols" },
-    -- Notifications
-    { "<leader>nn", "<cmd>Telescope notify<cr>",                        desc = "Notifications" },
   },
 	dependencies = {
 		{
