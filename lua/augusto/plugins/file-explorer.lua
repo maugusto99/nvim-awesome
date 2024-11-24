@@ -11,12 +11,21 @@ return {
 			vim.cmd([[Neotree close]])
 		end,
 		init = function()
-			if vim.fn.argc() == 1 then
-				local stat = vim.loop.fs_stat(vim.fn.argv(0))
-				if stat and stat.type == "directory" then
-					require("neo-tree")
-				end
-			end
+			vim.api.nvim_create_autocmd("BufEnter", {
+				group = vim.api.nvim_create_augroup("Neotree_start_directory", { clear = true }),
+				desc = "Start Neo-tree with directory",
+				once = true,
+				callback = function()
+					if package.loaded["neo-tree"] then
+						return
+					else
+						local stats = vim.uv.fs_stat(vim.fn.argv(0))
+						if stats and stats.type == "directory" then
+							require("neo-tree")
+						end
+					end
+				end,
+			})
 		end,
 		opts = {
 			popup_border_style = "rounded",
@@ -30,16 +39,17 @@ return {
 			window = {
 				position = "current",
 				mappings = {
+					["l"] = "open",
+					["h"] = "close_node",
 					["<space>"] = "none",
-					["Y"] = function(state)
-						local node = state.tree:get_node()
-						local content = node.path
-						-- relative
-						-- local content = node.path:gsub(state.path, ""):sub(2)
-						vim.fn.setreg('"', content)
-						vim.fn.setreg("1", content)
-						vim.fn.setreg("+", content)
-					end,
+					["Y"] = {
+						function(state)
+							local node = state.tree:get_node()
+							local path = node:get_id()
+							vim.fn.setreg("+", path, "c")
+						end,
+						desc = "Copy Path to Clipboard",
+					},
 				},
 			},
 			default_component_configs = {

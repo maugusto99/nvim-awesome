@@ -18,7 +18,10 @@ return {
 				"vimdoc",
 			},
 
-			ignore_install = { "fortran" },
+			patern = {
+				[".*/kitty/.+%.conf"] = "bash",
+			},
+			-- ignore_install = { "fortran" },
 			sync_install = false,
 			auto_install = true,
 			highlight = {

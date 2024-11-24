@@ -27,22 +27,16 @@ local function lsp_setup_basics()
 				end
 				vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc })
 			end
+			nmap("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
+			nmap("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
+			nmap("gI", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
 
-			nmap("gd", function()
-				require("trouble").toggle("lsp_definitions")
-			end, "[G]oto [D]efinition")
-			nmap("gr", function()
-				require("trouble").toggle("lsp_references")
-			end, "[G]oto [R]eferences")
-			nmap("gI", function()
-				require("trouble").toggle("lsp_implementations")
-			end, "[G]oto [I]mplementation")
+			nmap("<leader>D", require("telescope.builtin").lsp_type_definitions, "Type [D]efinition")
+			nmap("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
+			nmap("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
 
 			nmap("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
 			nmap("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
-
-			nmap("<leader>D", vim.lsp.buf.type_definition, "Type [D]efinition")
-			nmap("<leader>ds", vim.lsp.buf.document_symbol, "[D]ocument [S]ymbols")
 
 			-- See `:help K` for why this keymap
 			nmap("K", vim.lsp.buf.hover, "Hover Documentation")
@@ -83,7 +77,6 @@ local function lsp_setup_basics()
 			pylsp = {
 				plugins = {
 					ruff = { enabled = true, maxLineLength = 100 },
-					mypy = { enabled = false },
 					yapf = { enabled = false },
 					pyflakes = {
 						enabled = false,
@@ -154,22 +147,35 @@ return {
 			})
 		end,
 	},
+
 	{
 		"stevearc/conform.nvim",
 		keys = {
 			{
 				"<leader>fo",
 				function()
-					require("conform").format({ async = true, lsp_fallback = true })
+					require("conform").format()
 				end,
 				desc = "Format buffer",
 			},
 		},
 		opts = {
+			format = {
+				timeout_ms = 3000,
+				async = false,
+				quiet = false,
+				lsp_fallback = true,
+			},
 			formatters_by_ft = {
 				lua = { "stylua" },
 				sh = { "shfmt" },
 				fish = { "fish_indent" },
+				python = { "black" },
+			},
+			formatters = {
+				black = {
+					prepend_args = { "--line-length", "100" },
+				},
 			},
 		},
 		init = function()

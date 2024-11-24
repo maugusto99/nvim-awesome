@@ -55,21 +55,6 @@ return {
 	},
 
 	{
-		"stevearc/dressing.nvim",
-		lazy = true,
-		init = function()
-			vim.ui.select = function(...)
-				require("lazy").load({ plugins = { "dressing.nvim" } })
-				return vim.ui.select(...)
-			end
-			vim.ui.input = function(...)
-				require("lazy").load({ plugins = { "dressing.nvim" } })
-				return vim.ui.input(...)
-			end
-		end,
-	},
-
-	{
 		"echasnovski/mini.hipatterns",
 		version = false,
 		event = "VeryLazy",
@@ -89,7 +74,6 @@ return {
 			}
 		end,
 	},
-
 	{
 		"folke/which-key.nvim",
 		event = "VeryLazy",
@@ -135,21 +119,6 @@ return {
 		},
 		dependencies = {
 			"MunifTanjim/nui.nvim",
-		},
-	},
-
-	{
-		"folke/trouble.nvim",
-		cond = function()
-			return not vim.g.vscode
-		end,
-		cmd = { "TroubleToggle", "Trouble" },
-		opts = { use_diagnostic_signs = true },
-		keys = {
-			{ "<leader>xx", "<cmd>TroubleToggle document_diagnostics<cr>", desc = "Document Diagnostics (Trouble)" },
-			{ "<leader>xX", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Workspace Diagnostics (Trouble)" },
-			{ "<leader>xq", "<cmd>TroubleToggle quickfix<cr>", desc = "Quickfix list (Trouble)" },
-			{ "<leader>xl", "<cmd>TroubleToggle loclist<cr>", desc = "Loclist (Trouble)" },
 		},
 	},
 }

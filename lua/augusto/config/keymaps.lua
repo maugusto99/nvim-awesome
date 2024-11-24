@@ -7,6 +7,7 @@ end
 
 --Remap space as leader key
 vim.g.mapleader = " "
+vim.g.maplocalleader = ","
 keymap("n", "<Space>", "", set_description())
 
 -- Do not yank with x

@@ -1,4 +1,5 @@
 return {
+
 	{
 		"L3MON4D3/LuaSnip",
 		version = false,
@@ -83,6 +84,12 @@ return {
 						hl_group = "CmpGhostText",
 					},
 				},
+				window = {
+					completion = { -- rounded border; thin-style scrollbar
+						border = "rounded",
+						scrollbar = "║",
+					},
+				},
 				mapping = cmp.mapping.preset.insert({
 					["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
 					["<C-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
@@ -102,23 +109,11 @@ return {
 					entries = { name = "custom", selection_order = "near_cursor" },
 				},
 				formatting = {
-					format = function(entry, item)
+					format = function(entry, vim_item)
 						-- Kind icons
-						item.kind = string.format("%s %s", kind_icons[item.kind], item.kind) -- This concatonates the icons with the name of the item kind
-
-						fixed_width = fixed_width or false
-						local content = item.abbr
-						if fixed_width then
-							vim.o.pumwidth = fixed_width
-						end
-						local win_width = vim.api.nvim_win_get_width(0)
-						local max_content_width = fixed_width and fixed_width - 10 or math.floor(win_width * 0.2)
-						if #content > max_content_width then
-							item.abbr = vim.fn.strcharpart(content, 0, max_content_width - 3) .. "..."
-						else
-							item.abbr = content .. (" "):rep(max_content_width - #content)
-						end
-						return item
+						vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind) -- This concatenates the icons with the name of the item kind
+						-- Source
+						return vim_item
 					end,
 				},
 			}
